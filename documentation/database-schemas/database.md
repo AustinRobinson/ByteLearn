@@ -63,7 +63,7 @@ erDiagram
     uuid userId PK, FK
     uuid videoId PK, FK
   } 
-  VIDEO ||--|{ USER_COMMENT_LIKE : has
+  COMMENT ||--|{ USER_COMMENT_LIKE : has
   USER ||--|{ USER_COMMENT_LIKE : has
   USER_COMMENT_LIKE {
     uuid userId PK, FK
@@ -77,5 +77,44 @@ erDiagram
     uuid videoId FK
     text comment
     int likes
+  }
+  VIDEO ||--|{ USER_WATCHED_VIDEO : has
+  USER ||--|{ USER_WATCHED_VIDEO : has
+  USER_WATCHED_VIDEO {
+    uuid userId PK, FK
+    uuid videoId PK, FK
+    timestamp watchedAt
+  }
+  USER ||--|{ USER_FOLLOWS : follows
+  USER_FOLLOWS }|--|| USER : "is followed by"
+  USER_FOLLOWS {
+    uuid followerId PK, FK
+    uuid creatorId PK, FK
+    timestamp followedAt
+  }
+  USER ||--|{ VIDEO_REPORTS : makes
+  VIDEO ||--|{ VIDEO_REPORTS : has
+  VIDEO_REPORTS {
+    uuid id PK
+    uuid videoId FK
+    uuid userId FK
+    text comment
+  }
+  USER ||--|{ PLAYLISTS : has
+  PLAYLISTS ||--|{ PLAYLIST_VIDEOS : has
+  VIDEO ||--|{ PLAYLIST_VIDEOS : has
+  PLAYLISTS {
+    uuid id PK
+    uuid userId FK
+    text title
+    boolean isPrivate
+    timestamp createdAt
+    timestamp updatedAt
+  }
+  PLAYLIST_VIDEOS {
+    uuid playlistId PK, FK
+    uuid videoId PK, FK
+    timestamp addedAt
+    int order
   }
 ```
