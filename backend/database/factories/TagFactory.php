@@ -18,7 +18,7 @@ class TagFactory extends Factory
     {
         return [
             'tag' => fake()->word(),
-            'isBanned' => false,
+            'is_banned' => false,
         ];
     }
 }
