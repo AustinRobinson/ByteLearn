@@ -19,6 +19,7 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - 'frontend-build:/var/www/html/public/frontend' # Serve Angular build from Laravel's public directory
         networks:
             - sail
         depends_on:
@@ -27,6 +28,17 @@ services:
             - meilisearch
             - mailpit
             - selenium
+            - frontend-builder
+
+    frontend-builder:
+        image: node:18
+        working_dir: /app
+        volumes:
+            - '../frontend:/app'                            # Mounts the frontend code directory
+            - 'frontend-build:/app/dist/frontend/browser'   # Output the build to the shared volume
+        command: sh -c "npm install && npm run build"
+        environment:
+            - NODE_ENV=development
     pgsql:
         image: 'postgres:17'
         ports:
@@ -111,3 +123,4 @@ volumes:
         driver: local
     sail-meilisearch:
         driver: local
+    frontend-build: # Define the shared volume
