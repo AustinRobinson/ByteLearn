@@ -7,5 +7,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/{any}', function () {
-    return view('welcome');
-});
+    $path = public_path('frontend/index.html');
+    if (File::exists($path)) {
+        return Response::file($path);
+    }
+    abort(404);
+})->where('any', '.*');
+
