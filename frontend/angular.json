@@ -33,6 +33,7 @@
           },
           "configurations": {
             "production": {
+              "deployUrl": "/frontend/",
               "budgets": [
                 {
                   "type": "initial",
