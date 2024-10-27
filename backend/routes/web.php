@@ -12,5 +12,5 @@ Route::get('/{any}', function () {
         return Response::file($path);
     }
     abort(404);
-})->where('any', '.*');
+})->where('any', '^(?!api).*$');
 

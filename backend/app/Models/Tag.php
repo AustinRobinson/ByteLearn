@@ -25,6 +25,7 @@ class Tag extends Model
      */
     protected $fillable = [
         'tag',
+        'is_banned',
     ];
 
     /**
