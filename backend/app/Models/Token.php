@@ -25,7 +25,8 @@ class Token extends Model
     protected $fillable = [
         'token',
         'user_id',
-        'token_type'
+        'token_type',
+        'expires_at'
     ];
 
     /**
