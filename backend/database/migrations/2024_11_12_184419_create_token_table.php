@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('token', function (Blueprint $table) {
             $table->text('token')->unique();
             $table->foreignUuid('user_id')->constrained();
-            $table->enum('token_type', ['REFRESH', 'PASSWORD_RESET', 'VERIFY_EMAIL']);
-            $table->timestamp('issued_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
+            $table->enum('token_type', ['refresh', 'password_reset', 'verify_email']);
+            $table->timestamp('issued_at');
+            $table->timestamp('expires_at');
         });
     }
 
