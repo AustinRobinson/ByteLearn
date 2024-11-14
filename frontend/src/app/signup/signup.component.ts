@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
+  // Signup form group to hold form data
   public signupForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -27,30 +28,54 @@ export class SignupComponent {
 
   constructor(private router: Router, private authService: AuthService) {}
 
+  /**
+   * Get the firstName form control.
+   */
   public get firstName() {
     return this.signupForm.get('firstName');
   }
 
+  /**
+   * Get the lastName form control.
+   */
   public get lastName() {
     return this.signupForm.get('lastName');
   }
 
+  /**
+   * Get the username form control.
+   */
   public get username() {
     return this.signupForm.get('username');
   }
 
+  /**
+   * Get the email form control.
+   */
   public get email() {
     return this.signupForm.get('email');
   }
 
+  /**
+   * Get the password form control.
+   */
   public get password() {
     return this.signupForm.get('password');
   }
 
+  /**
+   * Get the confirmPassword form control.
+   */
   public get confirmPassword() {
     return this.signupForm.get('confirmPassword');
   }
 
+  /**
+   * Return a boolean indicating whether the given form control's error message
+   * should be shown.
+   *
+   * @returns a boolean
+   */
   public shouldShowError(control: AbstractControl | null) : boolean {
     if (control === null) {
       return false;
@@ -59,6 +84,10 @@ export class SignupComponent {
     return control.dirty && control.errors !== null;
   }
 
+  /**
+   * Called when the form is submitted. Checks that the fields are valid and
+   * makes a request to the API to create a new account.
+   */
   public onSubmit() : void {
     if (this.signupForm.invalid) {
       console.log('Errors in form');
@@ -73,10 +102,14 @@ export class SignupComponent {
         console.error('Error signing up', err);
       }
     });
-    console.log(this.signupForm.value);
-    console.log(this.signupForm.get('confirmPassword')!.errors);
   }
 
+  /**
+   * Custom validator function that checks if the value in the form control
+   * matches the value in the form control with the given name.
+   *
+   * @returns an object if the values do not match, null otherwise
+   */
   private matchesField(formControlName: string) : ValidatorFn {
     return (control: AbstractControl) : ValidationErrors | null => {
       const error = { matchesField: true };

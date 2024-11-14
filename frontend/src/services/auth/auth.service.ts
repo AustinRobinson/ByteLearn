@@ -13,6 +13,11 @@ export class AuthService {
 
   }
 
+  /**
+   * Make a signup request to the API.
+   *
+   * @returns a cold Observable with the response
+   */
   public signup(signupData: signupData): Observable<any> {
     return this.http.post(`${environment.apiBaseUrl}/register`, signupData);
   }
