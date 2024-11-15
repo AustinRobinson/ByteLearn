@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { signupData } from '../../app/signup/signup-data';
+import { SignupData } from '../../app/signup/signup-data';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -18,7 +18,7 @@ export class AuthService {
    *
    * @returns a cold Observable with the response
    */
-  public signup(signupData: signupData): Observable<any> {
+  public signup(signupData: SignupData): Observable<any> {
     return this.http.post(`${environment.apiBaseUrl}/register`, signupData);
   }
 }

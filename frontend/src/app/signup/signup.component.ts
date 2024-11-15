@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
-import { signupData } from './signup-data';
+import { SignupData } from './signup-data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -94,7 +94,7 @@ export class SignupComponent {
       return;
     }
 
-    this.authService.signup(this.signupForm.value as signupData).subscribe({
+    this.authService.signup(this.signupForm.value as SignupData).subscribe({
       next: (value) => {
         this.router.navigateByUrl('/video-feed');
       },

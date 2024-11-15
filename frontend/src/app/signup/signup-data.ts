@@ -1,7 +1,7 @@
 /**
  * Signup form data interface.
  */
-export interface signupData {
+export interface SignupData {
   firstName: string;
   lastName: string;
   username: string;
