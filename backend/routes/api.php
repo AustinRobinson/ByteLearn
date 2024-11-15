@@ -12,11 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/refresh', [AuthController::class, 'refresh']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-
-
-
-
-// Protected Routes (Require JWT Authentication)
+// protected routes (require authentication)
 Route::middleware([AuthenticateToken::class])->group(function () {
     // user routes
     Route::get('/user', [AuthController::class, 'user']);
@@ -24,33 +20,8 @@ Route::middleware([AuthenticateToken::class])->group(function () {
         return User::all();
     });
 
-    // New Tag routes
+    // new tag routes
     Route::apiResource('tags', TagController::class)->only(['index', 'store', 'destroy']);
     Route::post('users/{user}/tags', [TagController::class, 'attachToUser']);
     Route::delete('users/{user}/tags', [TagController::class, 'detachFromUser']);
 });
-
-
-// Unsafe route
-
-
-
-
-
-
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:api');
-
-// Safe route
-// Route::get('/user/{id}', function (Request $request, string $id) {
-//     return User::all();
-// })->middleware('auth:api');
-
-
-
-
-// Route::middleware('auth:api')->group(function () {
-    
-// });

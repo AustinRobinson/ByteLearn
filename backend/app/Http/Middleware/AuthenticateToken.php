@@ -17,37 +17,47 @@ class AuthenticateToken {
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next) {
+    public function handle(Request $request, Closure $next)
+    {
+        // retrieve the access token from the request
         $token = $request->bearerToken();
 
+        // verify token was provided
         if (!$token) {
-            return response()->json(['error' => 'Token not provided'], 401);
+            return response()->json(['message' => 'Token not provided'], 401);
         }
 
         try {
+            // decode the access token
             $decoded = JWT::decode($token, new Key(env('ACCESS_TOKEN_SECRET'), 'HS256'));
 
-            // Check if the token type is 'access'
-            if ($decoded->type !== 'access') {
-                return response()->json(['error' => 'Invalid token type'], 401);
+            // verify the token type
+            if (($decoded->type ?? null) !== 'access') {
+                return response()->json(['message' => 'Invalid token type'], 401);
             }
 
-            // Find the user by ID
+            // get the user using the 'sub' claim from the token
             $user = User::find($decoded->sub);
 
+            // verify the user exists
             if (!$user) {
-                return response()->json(['error' => 'User not found'], 404);
+                return response()->json(['message' => 'User not found'], 404);
             }
 
-            // Set the authenticated user in the request context
-            $request->setUserResolver(function () use ($user) {
-                return $user;
-            });
+            // set the authenticated user in the request context
+            $request->setUserResolver(fn() => $user);
 
+        } catch (ExpiredException $e) {
+            return response()->json(['message' => 'Token has expired'], 401);
+        } catch (SignatureInvalidException $e) {
+            return response()->json(['message' => 'Invalid token signature'], 401);
+        } catch (BeforeValidException $e) {
+            return response()->json(['message' => 'Token is not yet valid'], 401);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Token is invalid or expired'], 401);
+            return response()->json(['message' => 'Token is invalid or malformed'], 401);
         }
 
+        // continue processing the request
         return $next($request);
     }
 }
