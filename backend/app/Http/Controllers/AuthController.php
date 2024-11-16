@@ -161,8 +161,7 @@ class AuthController extends Controller
 
         if (!$tokenRecord) {
             // clear the refesh token cookie if the token is revoked
-            $cookie = cookie('refresh_token', '', 0);
-            return response()->json(['message' => 'Refresh token has been revoked'], 401)->withCookie($cookie);
+            return response()->json(['message' => 'Refresh token has been revoked'], 401)->withoutCookie('refresh_token');
         }
 
         // get the user using the 'sub' claim from the token
@@ -212,11 +211,8 @@ class AuthController extends Controller
         // invalidate the token by deleting it from the database
         Token::where('token', $refreshToken)->delete();
 
-
-        // clear the refresh token cookie
-        $cookie = cookie('refresh_token', '', 0);
-
-        return response()->noContent(204);
+        // send http 204 No Content and clear the refresh token cookie
+        return response()->noContent(204)->withoutCookie('refresh_token');
 
     }
 
