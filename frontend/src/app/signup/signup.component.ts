@@ -94,7 +94,18 @@ export class SignupComponent {
       return;
     }
 
-    this.authService.signup(this.signupForm.value as SignupData).subscribe({
+    const signupData: SignupData = {
+      first_name: this.firstName?.value ?? '',
+      last_name: this.lastName?.value ?? '',
+      username: this.username?.value ?? '',
+      email: this.email?.value ?? '',
+      password: this.password?.value ?? '',
+      password_confirmation: this.confirmPassword?.value ?? ''
+    };
+
+    console.log(signupData);
+
+    this.authService.signup(signupData).subscribe({
       next: (value) => {
         this.router.navigateByUrl('/video-feed');
       },
