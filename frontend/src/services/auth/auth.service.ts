@@ -23,9 +23,6 @@ export class AuthService {
       tap((response) => {
         this.accessToken = response.accessToken;
       }),
-      catchError((error) => {
-        return throwError(() => new Error('Failed to login'));
-      })
     );
   }
 }
