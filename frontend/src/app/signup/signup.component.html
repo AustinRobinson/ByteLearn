@@ -18,9 +18,12 @@
                 'focus:ring-indigo-600': !shouldShowError(firstName),
                 'focus:ring-red-500': shouldShowError(firstName),
               }">
+            <div *ngIf="firstName?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ firstName?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(firstName) && firstName?.hasError('required')) {
-            <span class="text-sm text-red-500">First name is required</span>
+          <span class="text-sm text-red-500">First name is required</span>
           }
         </div>
 
@@ -35,9 +38,12 @@
                 'focus:ring-indigo-600': !shouldShowError(lastName),
                 'focus:ring-red-500': shouldShowError(lastName),
               }">
+            <div *ngIf="lastName?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ lastName?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(lastName) && lastName?.hasError('required')) {
-            <span class="text-sm text-red-500">Last name is required</span>
+          <span class="text-sm text-red-500">Last name is required</span>
           }
         </div>
 
@@ -52,9 +58,12 @@
                 'focus:ring-indigo-600': !shouldShowError(username),
                 'focus:ring-red-500': shouldShowError(username),
               }">
+            <div *ngIf="username?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ username?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(username) && username?.hasError('required')) {
-            <span class="text-sm text-red-500">Username is required</span>
+          <span class="text-sm text-red-500">Username is required</span>
           }
         </div>
 
@@ -69,13 +78,16 @@
                 'focus:ring-indigo-600': !shouldShowError(email),
                 'focus:ring-red-500': shouldShowError(email),
               }">
+            <div *ngIf="email?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ email?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(email)) {
-            @if (email?.hasError('required')) {
-              <span class="text-sm text-red-500">Email is required</span>
-            } @else if (email?.hasError('email')) {
-              <span class="text-sm text-red-500">Email invalid</span>
-            }
+          @if (email?.hasError('required')) {
+          <span class="text-sm text-red-500">Email is required</span>
+          } @else if (email?.hasError('email')) {
+          <span class="text-sm text-red-500">Email invalid</span>
+          }
           }
         </div>
 
@@ -90,13 +102,16 @@
                 'focus:ring-indigo-600': !shouldShowError(password),
                 'focus:ring-red-500': shouldShowError(password),
               }">
+            <div *ngIf="password?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ password?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(password)) {
-            @if (password?.hasError('required')) {
-              <span class="text-sm text-red-500">Password is required</span>
-            } @else if (password?.hasError('minlength')) {
-              <span class="text-sm text-red-500">Password must be at least 8 characters long</span>
-            }
+          @if (password?.hasError('required')) {
+          <span class="text-sm text-red-500">Password is required</span>
+          } @else if (password?.hasError('minlength')) {
+          <span class="text-sm text-red-500">Password must be at least 8 characters long</span>
+          }
           }
         </div>
 
@@ -112,11 +127,14 @@
                 'focus:ring-indigo-600': !shouldShowError(confirmPassword),
                 'focus:ring-red-500': shouldShowError(confirmPassword),
               }">
+            <div *ngIf="confirmPassword?.getError('serverError')" class="text-red-600 text-sm mt-1">
+              {{ confirmPassword?.getError('serverError') }}
+            </div>
           </div>
           @if (shouldShowError(confirmPassword)) {
-            @if (confirmPassword?.hasError('matchesField')) {
-              <span class="text-sm text-red-500">Confirm password must match password</span>
-            }
+          @if (confirmPassword?.hasError('matchesField') || confirmPassword?.hasError('required')) {
+          <span class="text-sm text-red-500">Confirm password must match password</span>
+          }
           }
         </div>
       </div>
