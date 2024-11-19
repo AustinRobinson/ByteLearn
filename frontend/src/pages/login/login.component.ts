@@ -1,24 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
+import { ApiErrorResponse, AuthService, LoginFormData } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
-
-
-export interface LoginFormData {
-  email: string;
-  password: string;
-};
-
-export interface ApiErrorResponse {
-  // General message about the error
-  message: string;
-  errors: {
-    // Key-value pairs where the key is the field name and the value is an array of error messages
-    [key: string]: string[];
-  };
-}
-
 
 @Component({
   selector: 'app-login',

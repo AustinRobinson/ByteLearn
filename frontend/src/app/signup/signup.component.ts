@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
-import { SignupData } from './signup-data';
+import { AuthService, SignupFormData } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +25,7 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [this.matchesField('password')]),
   })
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) { }
 
   /**
    * Get the firstName form control.
@@ -76,7 +75,7 @@ export class SignupComponent {
    *
    * @returns a boolean
    */
-  public shouldShowError(control: AbstractControl | null) : boolean {
+  public shouldShowError(control: AbstractControl | null): boolean {
     if (control === null) {
       return false;
     }
@@ -88,13 +87,13 @@ export class SignupComponent {
    * Called when the form is submitted. Checks that the fields are valid and
    * makes a request to the API to create a new account.
    */
-  public onSubmit() : void {
+  public onSubmit(): void {
     if (this.signupForm.invalid) {
       console.log('Errors in form');
       return;
     }
 
-    const signupData: SignupData = {
+    const signupData: SignupFormData = {
       first_name: this.firstName?.value ?? '',
       last_name: this.lastName?.value ?? '',
       username: this.username?.value ?? '',
@@ -121,8 +120,8 @@ export class SignupComponent {
    *
    * @returns an object if the values do not match, null otherwise
    */
-  private matchesField(formControlName: string) : ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
+  private matchesField(formControlName: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const error = { matchesField: true };
       if (!this.signupForm) {
         return error;
