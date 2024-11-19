@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../components/header/header.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiErrorResponse, AuthService, LoginFormData } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
