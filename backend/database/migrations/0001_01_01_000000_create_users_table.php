@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();
             $table->string('password');
+            $table->text('refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('suspended_until')->nullable();
