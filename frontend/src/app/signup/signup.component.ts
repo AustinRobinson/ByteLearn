@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../components/header/header.component";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AuthService, SignupFormData } from '../../services/auth/auth.service';
+import { ApiErrorResponse, AuthService, SignupFormData } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [
+    CommonModule,
     HeaderComponent,
     ReactiveFormsModule,
   ],
@@ -22,7 +24,7 @@ export class SignupComponent {
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [this.matchesField('password')]),
+    confirmPassword: new FormControl('', [Validators.required, this.matchesField('password')]),
   })
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -80,7 +82,7 @@ export class SignupComponent {
       return false;
     }
 
-    return control.dirty && control.errors !== null;
+    return control.touched && control.errors !== null;
   }
 
   /**
@@ -89,7 +91,7 @@ export class SignupComponent {
    */
   public onSubmit(): void {
     if (this.signupForm.invalid) {
-      console.log('Errors in form');
+      this.signupForm.markAllAsTouched();
       return;
     }
 
@@ -108,8 +110,35 @@ export class SignupComponent {
       next: (value) => {
         this.router.navigateByUrl('/video-feed');
       },
-      error: (err) => {
-        console.error('Error signing up', err);
+      error: (error: ApiErrorResponse) => {
+        console.error('Signup failed:', error.error.message);
+
+        const fieldErrors = error?.error?.errors;
+
+        // set the error for each field with an error
+        if (fieldErrors?.['first_name']?.length > 0) {
+          this.firstName?.setErrors({ serverError: fieldErrors?.['first_name']?.[0] });
+        }
+
+        if (fieldErrors?.['last_name']?.length > 0) {
+          this.lastName?.setErrors({ serverError: fieldErrors?.['last_name']?.[0] });
+        }
+
+        if (fieldErrors?.['username']?.length > 0) {
+          this.username?.setErrors({ serverError: fieldErrors?.['username']?.[0] });
+        }
+
+        if (fieldErrors?.['email']?.length > 0) {
+          this.email?.setErrors({ serverError: fieldErrors?.['email']?.[0] });
+        }
+
+        if (fieldErrors?.['password']?.length > 0) {
+          this.password?.setErrors({ serverError: fieldErrors?.['password']?.[0] });
+        }
+
+        if (fieldErrors?.['password_confirmation']?.length > 0) {
+          this.confirmPassword?.setErrors({ serverError: fieldErrors?.['password_confirmation']?.[0] });
+        }
       }
     });
   }
