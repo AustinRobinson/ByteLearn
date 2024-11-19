@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -34,13 +34,15 @@ export interface LoginResponse {
 /**
  * API error response interface.
  */
-export interface ApiErrorResponse {
-  // general message about the error
-  message: string;
-  errors: {
-    // key-value pairs where the key is the field name and the value is an array of error messages
-    [key: string]: string[];
-  };
+export interface ApiErrorResponse extends HttpErrorResponse {
+  error: {
+    // general message about the error
+    message: string;
+    errors: {
+      // key-value pairs where the key is the field name and the value is an array of error messages
+      [key: string]: string[];
+    };
+  }
 }
 
 @Injectable({
