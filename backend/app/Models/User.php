@@ -82,4 +82,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Token::class);
     }
+
+    /**
+     * Get the strikes on the user's accounts
+     */
+    public function userStrikes(): HasMany
+    {
+        return $this->hasMany(UserStrikes::class);
+    }
 }
