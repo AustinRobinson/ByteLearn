@@ -29,6 +29,10 @@ class Token extends Model
         'expires_at'
     ];
 
+    // timestamps - created_at renamed to issued_at, and remove updated_at
+    const CREATED_AT = 'issued_at';
+    const UPDATED_AT = null;
+
     /**
      * Get the attributes that should be cast.
      *
@@ -40,10 +44,6 @@ class Token extends Model
             'expires_at' => 'datetime',
         ];
     }
-
-    // timestamps - created_at renamed to issued_at, and remove updated_at
-    const CREATED_AT = 'issued_at';
-    const UPDATED_AT = null;
 
     /**
      * Get the user associated with the token.

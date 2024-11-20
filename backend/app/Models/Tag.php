@@ -11,12 +11,6 @@ class Tag extends Model
 {
     use HasFactory, HasUuids;
 
-    /**
-     * Indicates if timestamps created_at and updated_at should be created.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +21,13 @@ class Tag extends Model
         'tag',
         'is_banned',
     ];
+
+    /**
+     * Indicates if timestamps created_at and updated_at should be created.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * Get the attributes that should be cast.
@@ -47,6 +48,6 @@ class Tag extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_interest');
     }
 }
