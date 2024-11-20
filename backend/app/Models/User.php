@@ -55,8 +55,6 @@ class User extends Authenticatable
 
     /**
      * The tags that belong to the user.
-     *
-     * @return BelongsToMany
      */
     public function tags(): BelongsToMany
     {
@@ -65,8 +63,6 @@ class User extends Authenticatable
 
     /**
      * Get the user's videos.
-     *
-     * @return HasMany
      */
     public function videos(): HasMany
     {
@@ -75,8 +71,6 @@ class User extends Authenticatable
 
     /**
      * Get the user's tokens.
-     *
-     * @return HasMany
      */
     public function tokens(): HasMany
     {

@@ -47,8 +47,6 @@ class Token extends Model
 
     /**
      * Get the user associated with the token.
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

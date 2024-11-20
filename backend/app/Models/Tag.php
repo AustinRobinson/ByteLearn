@@ -43,8 +43,6 @@ class Tag extends Model
 
     /**
      * The users that belong to the tag.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users(): BelongsToMany
     {
