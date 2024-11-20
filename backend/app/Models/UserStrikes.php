@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserStrikes extends Model
@@ -38,7 +38,7 @@ class UserStrikes extends Model
     }
 
     /**
-     * Get the user that this strike is associated with.
+     * The user that this strike is associated with.
      */
     public function user(): BelongsTo
     {

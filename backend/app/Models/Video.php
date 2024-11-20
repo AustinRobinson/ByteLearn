@@ -45,7 +45,7 @@ class Video extends Model
     }
 
     /**
-     *  Get the user that owns the video.
+     * The user that owns the video.
      */
     public function user(): BelongsTo
     {
@@ -53,7 +53,7 @@ class Video extends Model
     }
 
     /**
-     * Get the users that have liked the video.
+     * The users that have liked the video.
      */
     public function usersLiked(): BelongsToMany
     {

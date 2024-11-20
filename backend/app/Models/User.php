@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasUuids;
 
     /**
@@ -62,7 +60,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's videos.
+     * The videos the user owns.
      */
     public function videos(): HasMany
     {
@@ -70,7 +68,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's tokens.
+     * The user's tokens.
      */
     public function tokens(): HasMany
     {
@@ -78,7 +76,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the strikes on the user's accounts
+     * The strikes on the user's accounts.
      */
     public function userStrikes(): HasMany
     {
@@ -86,7 +84,7 @@ class User extends Authenticatable
     }
 
     /**
-     * get the videos that the user
+     * The videos that the user has liked.
      */
     public function videosLiked(): BelongsToMany
     {
