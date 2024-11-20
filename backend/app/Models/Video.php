@@ -67,4 +67,12 @@ class Video extends Model
     {
         return $this->belongsToMany(Tag::class, 'video_tag');
     }
+
+    /**
+     * The videos that the user has watched.
+     */
+    public function usersWatched(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_watched_video');
+    }
 }
