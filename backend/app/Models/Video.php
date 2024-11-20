@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Video extends Model
 {
@@ -49,5 +50,13 @@ class Video extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the users that have liked the video.
+     */
+    public function usersLiked(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_video_like');
     }
 }

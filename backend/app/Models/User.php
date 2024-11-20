@@ -84,4 +84,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserStrikes::class);
     }
+
+    /**
+     * get the videos that the user
+     */
+    public function videosLiked(): BelongsToMany
+    {
+        return $this->belongsToMany(Video::class, 'user_video_like');
+    }
 }
