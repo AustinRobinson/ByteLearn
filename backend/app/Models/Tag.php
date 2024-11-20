@@ -48,4 +48,12 @@ class Tag extends Model
     {
         return $this->belongsToMany(User::class, 'user_interest');
     }
+
+    /**
+     * The videos with the tag.
+     */
+    public function videos(): BelongsToMany
+    {
+        return $this->belongsToMany(Video::class, 'video_tag');
+    }
 }
