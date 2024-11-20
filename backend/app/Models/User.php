@@ -60,7 +60,7 @@ class User extends Authenticatable
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'user_interest');
     }
 
     /**
