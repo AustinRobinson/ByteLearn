@@ -138,4 +138,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Comment::class, 'user_comment_like');
     }
+
+    /**
+     * The playlists that the user owns.
+     */
+    public function playlists(): HasMany
+    {
+        return $this->hasMany(Playlist::class);
+    }
 }

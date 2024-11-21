@@ -93,4 +93,12 @@ class Video extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * The playlists that the videos are in.
+     */
+    public function playlists(): BelongsToMany
+    {
+        return $this->belongsToMany(Playlist::class, 'playlist_video');
+    }
 }
