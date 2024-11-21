@@ -69,7 +69,7 @@ class Video extends Model
     }
 
     /**
-     * The videos that the user has watched.
+     * The users that haved watched the video.
      */
     public function usersWatched(): BelongsToMany
     {

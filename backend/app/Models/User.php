@@ -92,6 +92,14 @@ class User extends Authenticatable
     }
 
     /**
+     * The videos that the user has watched.
+     */
+    public function videosWatched(): BelongsToMany
+    {
+        return $this->belongsToMany(Video::class, 'user_watched_video');
+    }
+
+    /**
      * The users this user follows.
      */
     public function usersFollows(): BelongsToMany
