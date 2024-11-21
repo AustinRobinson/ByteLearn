@@ -22,7 +22,6 @@ class UserStrikes extends Model
     ];
 
     // timestamps - created_at, no updated_at
-    // const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
 
     /**
