@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('video_reports', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('video_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
             $table->text('comment');
+            $table->timestamps();
         });
     }
 
