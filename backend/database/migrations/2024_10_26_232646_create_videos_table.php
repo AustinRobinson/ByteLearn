@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
-            $table->string('s3_key');
-            $table->string('title');
-            $table->string('description');
+            $table->text('s3_key');
+            $table->text('title');
+            $table->text('description');
             $table->integer('likes');
             $table->boolean('is_banned');
             $table->timestamps();
