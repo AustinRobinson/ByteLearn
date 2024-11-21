@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Tag;
 use App\Models\Video;
 use App\Models\Comment;
+use App\Models\UserStrike;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -51,6 +52,11 @@ class DatabaseSeeder extends Seeder
         $followed = User::factory()->unverified()->create();
         $followed->usersFollowedBy()->attach($users->last()->id, ['followed_at' => now()]);
 
-
+        $userWithStrike = User::factory()
+            ->has(
+                UserStrike::factory()
+            )
+            ->unverified()
+            ->create();
     }
 }
