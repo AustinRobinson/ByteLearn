@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('title');
             $table->text('description');
             $table->integer('likes')->default(0);
-            $table->boolean('is_banned');
+            $table->boolean('is_banned')->default(false);
             $table->timestamps();
         });
     }

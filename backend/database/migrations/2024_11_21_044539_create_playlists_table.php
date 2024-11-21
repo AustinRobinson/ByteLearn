@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->text('title');
-            $table->boolean('is_private');
+            $table->boolean('is_private')->default(false);
             $table->timestamps();
         });
     }

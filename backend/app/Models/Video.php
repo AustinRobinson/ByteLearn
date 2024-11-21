@@ -83,7 +83,7 @@ class Video extends Model
      */
     public function usersReported(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class, 'video_reports');
+        return $this->belongsToMany(User::class, 'video_reports');
     }
 
     /**

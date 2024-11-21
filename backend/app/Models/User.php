@@ -52,9 +52,9 @@ class User extends Authenticatable
     }
 
     /**
-     * The tags that belong to the user.
+     * The users' interests (tags internally).
      */
-    public function tags(): BelongsToMany
+    public function interests(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'user_interest');
     }
@@ -108,11 +108,11 @@ class User extends Authenticatable
     }
 
     /**
-     * The users this user is followed by.
+     * The followers of this user.
      */
-    public function usersFollowedBy(): BelongsToMany
+    public function followers(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class, 'user_follows', 'creator_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'user_follows', 'creator_id', 'follower_id');
     }
 
     /**

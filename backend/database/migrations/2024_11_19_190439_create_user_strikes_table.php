@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->text('reason');
-            $table->boolean('has_caused_suspension');
+            $table->boolean('has_caused_suspension')->default(false);
             $table->timestamp('created_at');
         });
     }

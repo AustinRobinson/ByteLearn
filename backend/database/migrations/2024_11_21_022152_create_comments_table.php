@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('likes')->default(0);
             $table->timestamps();
         });
+
         Schema::table('comments', function (Blueprint $table) {
             $table->foreign('comment_id')->references('id')->on('comments');
         });

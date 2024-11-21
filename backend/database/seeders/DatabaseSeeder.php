@@ -29,6 +29,14 @@ class DatabaseSeeder extends Seeder
             ->unverified()
             ->create();
 
+        // create a user with a strike
+        User::factory()
+            ->has(
+                UserStrike::factory()
+            )
+            ->unverified()
+            ->create();
+
         // create comments for each video
         foreach(Video::all() as $vid) {
             $commenter = User::factory()->unverified()->create();
@@ -41,7 +49,7 @@ class DatabaseSeeder extends Seeder
 
         // attach tags to users to represent user interests
         foreach ($users as $user) {
-            $user->tags()->attach(
+            $user->interests()->attach(
                 $tags->random(rand(2, 4))->pluck('id')->toArray()
             );
         }
@@ -60,15 +68,7 @@ class DatabaseSeeder extends Seeder
         // create a new creator who is followed by the third user in the above
         // users collection
         $followed = User::factory()->unverified()->create();
-        $followed->usersFollowedBy()->attach($users->last()->id, ['followed_at' => now()]);
-
-        // create a user with a strike
-        User::factory()
-            ->has(
-                UserStrike::factory()
-            )
-            ->unverified()
-            ->create();
+        $followed->followers()->attach($users->last()->id, ['followed_at' => now()]);
 
         // put videos in a playlist
         $playlist = Playlist::all()->first();
