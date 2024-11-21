@@ -33,6 +33,14 @@ class Comment extends Model
     }
 
     /**
+     * The user who made the comment.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * The replies to this comment.
      */
     public function replies(): HasMany

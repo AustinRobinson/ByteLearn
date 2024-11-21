@@ -124,6 +124,14 @@ class User extends Authenticatable
     }
 
     /**
+     * The comments the user has made.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * The comments that the user liked.
      */
     public function commentsLiked(): BelongsToMany

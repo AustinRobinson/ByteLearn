@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('comment_id')->nullable();
             $table->foreignUuid('video_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('comment_id')->nullable();
             $table->text('comment');
             $table->integer('likes')->default(0);
             $table->timestamps();
