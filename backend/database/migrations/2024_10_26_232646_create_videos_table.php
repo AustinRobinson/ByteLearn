@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('s3_key');
             $table->text('title');
             $table->text('description');
-            $table->integer('likes');
+            $table->integer('likes')->default(0);
             $table->boolean('is_banned');
             $table->timestamps();
         });
