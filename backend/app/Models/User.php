@@ -80,7 +80,7 @@ class User extends Authenticatable
      */
     public function userStrikes(): HasMany
     {
-        return $this->hasMany(UserStrikes::class);
+        return $this->hasMany(UserStrike::class);
     }
 
     /**

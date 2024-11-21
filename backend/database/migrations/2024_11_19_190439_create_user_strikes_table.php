@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_strikes', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->text('reason');
             $table->boolean('has_caused_suspension');
