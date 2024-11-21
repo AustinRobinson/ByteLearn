@@ -114,4 +114,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Video::class, 'user_follows', 'creator_id', 'follower_id');
     }
+
+    /**
+     * The video reports the user has made.
+     */
+    public function reports(): BelongsToMany
+    {
+        return $this->belongsToMany(Video::class, 'video_reports');
+    }
 }

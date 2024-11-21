@@ -75,4 +75,12 @@ class Video extends Model
     {
         return $this->belongsToMany(User::class, 'user_watched_video');
     }
+
+    /**
+     * The users who have reported the video.
+     */
+    public function usersReported(): BelongsToMany
+    {
+        return $this->belongsToMany(Video::class, 'video_reports');
+    }
 }
