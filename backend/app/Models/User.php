@@ -122,4 +122,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Video::class, 'video_reports');
     }
+
+    /**
+     * The comments that the user liked.
+     */
+    public function commentsLiked(): BelongsToMany
+    {
+        return $this->belongsToMany(Comment::class, 'user_comment_like');
+    }
 }
