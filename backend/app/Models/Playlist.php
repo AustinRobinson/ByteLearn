@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Tag extends Model
+class Playlist extends Model
 {
     use HasFactory, HasUuids;
-
 
     /**
      * The attributes that are mass assignable.
@@ -18,42 +18,36 @@ class Tag extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'tag',
-        'is_banned',
+        'user_id',
+        'title',
+        'is_private',
     ];
-
-    /**
-     * Indicates if timestamps created_at and updated_at should be created.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    public function casts(): array
     {
         return [
-            'is_banned' => 'boolean',
+            'is_private' => 'boolean',
         ];
     }
 
     /**
-     * The users that belong to the tag.
+     * The user who owns the playlist.
      */
-    public function users(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'user_interest');
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * The videos having the tag.
+     * The videos in the playlist.
      */
     public function videos(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class, 'video_tag');
+        return $this->belongsToMany(Video::class, 'playlist_video');
     }
 }

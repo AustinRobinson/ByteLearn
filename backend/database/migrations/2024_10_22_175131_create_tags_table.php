@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->uuid('id')->unique();
+            $table->uuid('id')->primary();
             $table->string('tag')->unique();
-            $table->boolean('is_banned');
+            $table->boolean('is_banned')->default(false);
         });
     }
 

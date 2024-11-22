@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Video extends Model
 {
-    use HasUuids;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -44,10 +47,58 @@ class Video extends Model
     }
 
     /**
-     *  Get the user that owns the video.
+     * The user that owns the video.
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * The users that have liked the video.
+     */
+    public function usersLiked(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_video_like');
+    }
+
+    /**
+     * The tags that the video has.
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'video_tag');
+    }
+
+    /**
+     * The users that haved watched the video.
+     */
+    public function usersWatched(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_watched_video');
+    }
+
+    /**
+     * The users who have reported the video.
+     */
+    public function usersReported(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'video_reports');
+    }
+
+    /**
+     * The comments on the video.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * The playlists that the videos are in.
+     */
+    public function playlists(): BelongsToMany
+    {
+        return $this->belongsToMany(Playlist::class, 'playlist_video');
     }
 }

@@ -4,18 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Token extends Model
+class UserStrike extends Model
 {
-    use HasUuids;
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'token';
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -23,14 +17,12 @@ class Token extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'token',
         'user_id',
-        'token_type',
-        'expires_at'
+        'reason',
+        'has_caused_suspension',
     ];
 
-    // timestamps - created_at renamed to issued_at, and remove updated_at
-    const CREATED_AT = 'issued_at';
+    // timestamps - created_at, no updated_at
     const UPDATED_AT = null;
 
     /**
@@ -38,15 +30,15 @@ class Token extends Model
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    public function casts(): array
     {
         return [
-            'expires_at' => 'datetime',
+            'has_caused_suspension' => 'boolean',
         ];
     }
 
     /**
-     * The user associated with the token.
+     * The user that this strike is associated with.
      */
     public function user(): BelongsTo
     {

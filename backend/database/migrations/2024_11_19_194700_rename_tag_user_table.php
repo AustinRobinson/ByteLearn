@@ -11,11 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_user', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->constrained();
-            $table->foreignUuid('tag_id')->constrained();
-            $table->primary(['user_id', 'tag_id']);
-        });
+        Schema::rename('tag_user', 'user_interest');
     }
 
     /**
@@ -23,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tag_user');
+        Schema::rename('user_interest', 'tag_user');
     }
 };
