@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideoController;
 use App\Http\Middleware\AuthenticateToken;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -16,8 +17,12 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware([AuthenticateToken::class])->group(function () {
     // user routes
     Route::get('/user', [AuthController::class, 'user']);
-    Route::get('/user/{id}', function (Request $request, string $id) {
+    Route::get('/user/all', function (Request $request) {
         return User::all();
+    });
+
+    Route::controller(VideoController::class)->group(function() {
+        Route::get('/videos/all', 'all');
     });
 
     // new tag routes
