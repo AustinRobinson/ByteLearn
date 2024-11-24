@@ -23,24 +23,25 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function upload(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'user_id' => ['required', 'uuid'],
-            's3' => ['required', 'string', 'unique:videos', 'max:255'],
+            's3_key' => ['required', 'string', 'unique:videos', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string']
         ]);
 
+        $user = $request->user();
+
         $video = Video::create([
-            'user_id' => $validated['user_id'],
-            's3' => $validated['s3'],
+            'user_id' => $user->id,
+            's3_key' => $validated['s3_key'],
             'title' => $validated['title'],
             'description' => $validated['description']
-        ]);
+        ])->user()->associate($user);
 
         return response()->json([
-            'message' => 'Video created successfully.',
+            'message' => 'Video uploaded successfully.',
             'data' => $video
         ], 201);
 
