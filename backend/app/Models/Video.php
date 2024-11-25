@@ -50,7 +50,18 @@ class Video extends Model
     /**
      * Set attributes that should be searchable by Meilisearch
      * 
+     * @return array
      */
+    public function toSearchableArray(): array {
+        $array = [];
+
+        $array["title"] = $this->title;
+        $array["description"] = $this->description;
+        $array["tags"] = $this->tags;
+
+        return $array;
+    }
+
 
     /**
      * The user that owns the video.
