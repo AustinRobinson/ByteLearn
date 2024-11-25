@@ -50,9 +50,10 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function search(Request $request): JsonResponse
     {
-        //
+        // TODOa
+        // $query = Video::query()->whe
     }
 
     /**
