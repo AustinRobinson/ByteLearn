@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -9,5 +9,5 @@ import { HeaderComponent } from '../../components/header/header.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  
+
 }

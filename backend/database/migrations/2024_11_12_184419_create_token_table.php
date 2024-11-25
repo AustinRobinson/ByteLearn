@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('token', function (Blueprint $table) {
+        Schema::create('tokens', function (Blueprint $table) {
             $table->text('token')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->enum('token_type', ['refresh', 'password_reset', 'verify_email']);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('token');
+        Schema::dropIfExists('tokens');
     }
 };

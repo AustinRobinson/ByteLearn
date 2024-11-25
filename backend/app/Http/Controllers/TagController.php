@@ -48,7 +48,7 @@ class TagController extends Controller
             'tag_ids.*' => ['required', 'uuid', 'exists:tags,id']
         ]);
 
-        $user->tags()->attach($validated['tag_ids']);
+        $user->interests()->attach($validated['tag_ids']);
 
         return response()->json([
             'message' => 'Tags attached successfully',
@@ -66,7 +66,7 @@ class TagController extends Controller
             'tag_ids.*' => ['required', 'uuid', 'exists:tags,id']
         ]);
 
-        $user->tags()->detach($validated['tag_ids']);
+        $user->interests()->detach($validated['tag_ids']);
 
         return response()->json([
             'message' => 'Tags detached successfully',

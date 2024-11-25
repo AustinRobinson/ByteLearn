@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->uuid('client_id');
-            $table->timestamps();
+        Schema::create('video_tag', function (Blueprint $table) {
+            $table->foreignUuid('video_id')->constrained();
+            $table->foreignUuid('tag_id')->constrained();
+            $table->primary(['video_id', 'tag_id']);
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('oauth_personal_access_clients');
+        Schema::dropIfExists('video_tag');
     }
 };

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_user', function (Blueprint $table) {
+        Schema::create('playlists', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
-            $table->foreignUuid('tag_id')->constrained();
-            $table->primary(['user_id', 'tag_id']);
+            $table->text('title');
+            $table->boolean('is_private')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tag_user');
+        Schema::dropIfExists('playlists');
     }
 };

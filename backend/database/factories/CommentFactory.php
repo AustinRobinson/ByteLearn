@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Video>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class VideoFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,8 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            's3_key' => fake()->md5(),
-            'title' => fake()->sentence(6),
-            'description' => fake()->paragraph(5),
-            'is_banned' => false,
+            'comment_id' => null,
+            'comment' => fake()->paragraph(3),
         ];
     }
 }

@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Video extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -48,31 +48,7 @@ class Video extends Model
     }
 
     /**
-     * Get the video URL attribute.
-     *
-     * @return string|null
-     */
-    public function getVideoUrlAttribute(): ?string
-    {
-        if ($this->s3_key) {
-            // For Local Storage
-            return url('storage/' . $this->s3_key);
-            
-            // For S3 Storage (commented out)
-            // try {
-            //     return Storage::disk('s3')->temporaryUrl(
-            //         $this->s3_key,
-            //         now()->addHours(24)
-            //     );
-            // } catch (\Exception $e) {
-            //     return null;
-            // }
-        }
-        return null;
-    }
-
-    /**
-     * Get the user that owns the video.
+     * The user that owns the video.
      */
     public function user(): BelongsTo
     {
@@ -80,10 +56,50 @@ class Video extends Model
     }
 
     /**
-     * The tags that belong to the video.
+     * The users that have liked the video.
+     */
+    public function usersLiked(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_video_like');
+    }
+
+    /**
+     * The tags that the video has.
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'video_tags');
+        return $this->belongsToMany(Tag::class, 'video_tag');
+    }
+
+    /**
+     * The users that haved watched the video.
+     */
+    public function usersWatched(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_watched_video');
+    }
+
+    /**
+     * The users who have reported the video.
+     */
+    public function usersReported(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'video_reports');
+    }
+
+    /**
+     * The comments on the video.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * The playlists that the videos are in.
+     */
+    public function playlists(): BelongsToMany
+    {
+        return $this->belongsToMany(Playlist::class, 'playlist_video');
     }
 }

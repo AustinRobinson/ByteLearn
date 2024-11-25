@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('video_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
-            $table->text('s3_key');
-            $table->text('title');
-            $table->text('description');
+            $table->foreignUuid('comment_id')->nullable();
+            $table->text('comment');
             $table->integer('likes')->default(0);
-            $table->boolean('is_banned')->default(false);
             $table->timestamps();
+        });
+
+        Schema::table('comments', function (Blueprint $table) {
+            $table->foreign('comment_id')->references('id')->on('comments');
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('comments');
     }
 };
