@@ -53,13 +53,11 @@ class Video extends Model
      * @return array
      */
     public function toSearchableArray(): array {
-        $array = [];
-
-        $array["title"] = $this->title;
-        $array["description"] = $this->description;
-        $array["tags"] = $this->tags;
-
-        return $array;
+        return [
+            "title" => $this->title,
+            "description" => $this->description,
+            // "tags" => $this->tags->tag,
+        ];
     }
 
 

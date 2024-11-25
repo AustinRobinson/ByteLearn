@@ -52,8 +52,12 @@ class VideoController extends Controller
      */
     public function search(Request $request): JsonResponse
     {
-        // TODOa
-        // $query = Video::query()->whe
+        $search = Video::search($request->search)->get();
+        
+        return response()->json([
+            'message' => 'Search results for '.$request->search,
+            'data' => $search
+        ]);
     }
 
     /**
