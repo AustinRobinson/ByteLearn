@@ -10,84 +10,16 @@ use Illuminate\Support\Facades\Storage;
 class VideoController extends Controller
 {
     /**
-     * Get video feed prioritizing user's interests
+     * Get personalized video feed
      */
-    // public function index(Request $request): JsonResponse
-    // {
-    //     $userInterestTags = $request->user()->tags()
-    //         ->where('is_banned', false)
-    //         ->pluck('id');
-
-    //     $query = Video::with(['user', 'tags'])
-    //         ->where('is_banned', false);
-
-    //     if ($userInterestTags->isNotEmpty()) {
-    //         $matchingVideos = (clone $query)
-    //             ->whereHas('tags', function ($q) use ($userInterestTags) {
-    //                 $q->whereIn('tags.id', $userInterestTags);
-    //             });
-
-    //         $otherVideos = (clone $query)
-    //             ->whereDoesntHave('tags', function ($q) use ($userInterestTags) {
-    //                 $q->whereIn('tags.id', $userInterestTags);
-    //             });
-
-    //         $query = $matchingVideos->union($otherVideos);
-    //     }
-
-    //     $videos = $query->latest()
-    //         ->paginate(20)
-    //         ->through(function ($video) use ($userInterestTags) {
-    //             return [
-    //                 'id' => $video->id,
-    //                 'title' => $video->title,
-    //                 'description' => $video->description,
-    //                 'likes' => $video->likes,
-    //                 // For Local Storage
-    //                 'video_url' => url('storage/' . $video->s3_key),
-                    
-    //                 // For S3 Storage (commented out)
-    //                 // 'video_url' => Storage::disk('s3')->temporaryUrl(
-    //                 //     $video->s3_key,
-    //                 //     now()->addHours(24)
-    //                 // ),
-                    
-    //                 'created_at' => $video->created_at,
-    //                 'user' => [
-    //                     'id' => $video->user->id,
-    //                     'username' => $video->user->username,
-    //                 ],
-    //                 'tags' => $video->tags->map(fn($tag) => [
-    //                     'id' => $tag->id,
-    //                     'tag' => $tag->tag
-    //                 ]),
-    //                 'matches_interests' => $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
-    //             ];
-    //         });
-
-    //     return response()->json([
-    //         'data' => $videos->items(),
-    //         'meta' => [
-    //             'current_page' => $videos->currentPage(),
-    //             'last_page' => $videos->lastPage(),
-    //             'per_page' => $videos->perPage(),
-    //             'total' => $videos->total()
-    //         ]
-    //     ]);
-    // }
-
     public function index(Request $request): JsonResponse
-{
-    // Start with basic video query
-    $query = Video::with(['user', 'tags'])
-        ->where('is_banned', false);
+    {
+        $query = Video::with(['user', 'tags'])
+            ->where('is_banned', false);
 
-    // For testing without auth, get the first user's tags
-    $testUser = User::first();
-    $userInterestTags = collect(); // Default empty collection
-
-    if ($testUser) {
-        $userInterestTags = $testUser->tags()
+        // Get authenticated user's interests
+        $user = $request->user();
+        $userInterestTags = $user->interests()
             ->where('is_banned', false)
             ->pluck('id');
 
@@ -104,40 +36,41 @@ class VideoController extends Controller
 
             $query = $matchingVideos->union($otherVideos);
         }
+
+        $videos = $query->latest()
+            ->paginate(20)
+            ->through(function ($video) use ($user) {
+                return [
+                    'id' => $video->id,
+                    'title' => $video->title,
+                    'description' => $video->description,
+                    'video_url' => url('storage/' . $video->s3_key),
+                    'created_at' => $video->created_at,
+                    'user' => [
+                        'id' => $video->user->id,
+                        'username' => $video->user->username,
+                    ],
+                    'tags' => $video->tags->map(fn($tag) => [
+                        'id' => $tag->id,
+                        'tag' => $tag->tag
+                    ]),
+                    'is_liked' => $video->likedBy()->where('user_id', $user->id)->exists(),
+                    'has_watched' => $video->watchedBy()->where('user_id', $user->id)->exists(),
+                    'comment_count' => $video->comments()->count(),
+                    'matches_interests' => $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
+                ];
+            });
+
+        return response()->json([
+            'data' => $videos->items(),
+            'meta' => [
+                'current_page' => $videos->currentPage(),
+                'last_page' => $videos->lastPage(),
+                'per_page' => $videos->perPage(),
+                'total' => $videos->total()
+            ]
+        ]);
     }
-
-    $videos = $query->latest()
-        ->paginate(20)
-        ->through(function ($video) use ($userInterestTags) {
-            return [
-                'id' => $video->id,
-                'title' => $video->title,
-                'description' => $video->description,
-                'likes' => $video->likes,
-                'video_url' => url('storage/' . $video->s3_key),
-                'created_at' => $video->created_at,
-                'user' => [
-                    'id' => $video->user->id,
-                    'username' => $video->user->username,
-                ],
-                'tags' => $video->tags->map(fn($tag) => [
-                    'id' => $tag->id,
-                    'tag' => $tag->tag
-                ]),
-                'matches_interests' => $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
-            ];
-        });
-
-    return response()->json([
-        'data' => $videos->items(),
-        'meta' => [
-            'current_page' => $videos->currentPage(),
-            'last_page' => $videos->lastPage(),
-            'per_page' => $videos->perPage(),
-            'total' => $videos->total()
-        ]
-    ]);
-}
 
     /**
      * Store a new video
@@ -176,12 +109,8 @@ class VideoController extends Controller
         }
 
         try {
-            // For Local Storage
             $videoPath = $videoFile->store('videos', 'public');
             
-            // For S3 Storage (commented out)
-            // $videoPath = $videoFile->store('videos', 's3');
-
             $video = Video::create([
                 'user_id' => $request->user()->id,
                 'title' => $validated['title'],
@@ -195,20 +124,14 @@ class VideoController extends Controller
                 $video->tags()->attach($validated['tag_ids']);
             }
 
-            $videoData = $video->load(['user', 'tags'])->toArray();
-            
-            // For Local Storage
-            $videoData['video_url'] = url('storage/' . $videoPath);
-            
-            // For S3 Storage (commented out)
-            // $videoData['video_url'] = Storage::disk('s3')->temporaryUrl(
-            //     $videoPath,
-            //     now()->addHours(24)
-            // );
-
             return response()->json([
                 'message' => 'Video uploaded successfully',
-                'data' => $videoData
+                'data' => array_merge($video->load(['user', 'tags'])->toArray(), [
+                    'video_url' => url('storage/' . $videoPath),
+                    'comment_count' => 0,
+                    'is_liked' => false,
+                    'has_watched' => false
+                ])
             ], 201);
 
         } catch (\Exception $e) {
@@ -222,7 +145,7 @@ class VideoController extends Controller
     /**
      * Get a specific video
      */
-    public function show(Video $video): JsonResponse
+    public function show(Video $video, Request $request): JsonResponse
     {
         if ($video->is_banned) {
             return response()->json([
@@ -230,24 +153,15 @@ class VideoController extends Controller
             ], 404);
         }
 
-        $video->load(['user', 'tags']);
-
-        // For Local Storage
-        $videoUrl = url('storage/' . $video->s3_key);
-        
-        // For S3 Storage (commented out)
-        // $videoUrl = Storage::disk('s3')->temporaryUrl(
-        //     $video->s3_key,
-        //     now()->addHours(24)
-        // );
+        $video->load(['user', 'tags', 'comments.user', 'comments.replies.user']);
+        $user = $request->user();
 
         return response()->json([
             'data' => [
                 'id' => $video->id,
                 'title' => $video->title,
                 'description' => $video->description,
-                'likes' => $video->likes,
-                'video_url' => $videoUrl,
+                'video_url' => url('storage/' . $video->s3_key),
                 'created_at' => $video->created_at,
                 'user' => [
                     'id' => $video->user->id,
@@ -256,7 +170,29 @@ class VideoController extends Controller
                 'tags' => $video->tags->map(fn($tag) => [
                     'id' => $tag->id,
                     'tag' => $tag->tag
-                ])
+                ]),
+                'is_liked' => $video->likedBy()->where('user_id', $user->id)->exists(),
+                'has_watched' => $video->watchedBy()->where('user_id', $user->id)->exists(),
+                'comments' => $video->comments->map(function($comment) {
+                    return [
+                        'id' => $comment->id,
+                        'text' => $comment->comment,
+                        'user' => [
+                            'id' => $comment->user->id,
+                            'username' => $comment->user->username
+                        ],
+                        'replies' => $comment->replies->map(function($reply) {
+                            return [
+                                'id' => $reply->id,
+                                'text' => $reply->comment,
+                                'user' => [
+                                    'id' => $reply->user->id,
+                                    'username' => $reply->user->username
+                                ]
+                            ];
+                        })
+                    ];
+                })
             ]
         ]);
     }

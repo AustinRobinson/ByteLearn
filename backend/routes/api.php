@@ -26,14 +26,10 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     Route::apiResource('tags', TagController::class)->only(['index', 'store', 'destroy']);
     Route::post('users/{user}/tags', [TagController::class, 'attachToUser']);
     Route::delete('users/{user}/tags', [TagController::class, 'detachFromUser']);
+
+    // Video routes
+    Route::get('/videos', [VideoController::class, 'index']);
+    Route::post('/videos', [VideoController::class, 'store']);
+    Route::get('/videos/{video}', [VideoController::class, 'show']);
 });
 
-//video routes
-// Route::middleware(['auth:api'])->group(function () {
-//     Route::post('videos', [VideoController::class, 'store'])->middleware('video.upload');
-//     Route::get('videos', [VideoController::class, 'index']);
-//     Route::get('videos/{video}', [VideoController::class, 'show']);
-// });
-Route::get('/videos', [VideoController::class, 'index']);
-Route::post('/videos', [VideoController::class, 'store']);
-Route::get('/videos/{video}', [VideoController::class, 'show']);

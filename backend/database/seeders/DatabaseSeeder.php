@@ -13,9 +13,6 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         // creating initial tags, users, and videos
@@ -37,6 +34,13 @@ class DatabaseSeeder extends Seeder
             ->unverified()
             ->create();
 
+        // Attach tags to all videos
+        foreach(Video::all() as $video) {
+            $video->tags()->attach(
+                $tags->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        }
+
         // create comments for each video
         foreach(Video::all() as $vid) {
             $commenter = User::factory()->unverified()->create();
@@ -54,6 +58,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        // Rest of your seeder remains the same...
         // set comment replies to other comments within the last video
         $video = Video::all()->last();
         $comments = Comment::where('video_id', $video->id)->get();
