@@ -48,16 +48,72 @@ class VideoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Search over title, description, tag, and user
      */
-    public function search(Request $request): JsonResponse
+    public function searchAll(Request $request): JsonResponse
     {
         $search = Video::search($request->search)->get();
+
+        return response()->json([
+            'message' => 'Search results on titles for '.$request->search,
+            'data' => $search
+        ], 200);
+    }
+
+    /**
+     * Search over title only
+     */
+    public function searchTitle(Request $request): JsonResponse {
+        $search = Video::search($request->search)->options([
+            'attributesToSearchOn' => ['title']
+        ])->get();
         
         return response()->json([
             'message' => 'Search results for '.$request->search,
             'data' => $search
-        ]);
+        ], 200);
+    }
+
+    /**
+     * Search over description only
+     */
+    public function searchDescription(Request $request): JsonResponse {
+        $search = Video::search($request->search)->options([
+            'attributesToSearchOn' => ['description']
+        ])->get();
+        
+        return response()->json([
+            'message' => 'Search results for '.$request->search,
+            'data' => $search
+        ], 200);
+    }
+
+    /**
+     * Search over tag only
+     */
+    public function searchTag(Request $request): JsonResponse {
+        $search = Video::search($request->search)->options([
+            'attributesToSearchOn' => ['tag']
+        ])->get();
+        
+        return response()->json([
+            'message' => 'Search results for '.$request->search,
+            'data' => $search
+        ], 200);
+    }
+
+    /**
+     * Search over user only
+     */
+    public function searchUser(Request $request): JsonResponse {
+        $search = Video::search($request->search)->options([
+            'attributesToSearchOn' => ['user']
+        ])->get();
+        
+        return response()->json([
+            'message' => 'Search results for '.$request->search,
+            'data' => $search
+        ], 200);
     }
 
     /**

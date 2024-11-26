@@ -25,7 +25,11 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     Route::controller(VideoController::class)->group(function() {
         Route::get('/videos/all', 'all');
         Route::post('/videos/upload', 'upload');
-        Route::get('/videos/search', 'search');
+        Route::get('/videos/search/all', 'searchAll');
+        Route::get('/videos/search/title', 'searchTitle');
+        Route::get('/videos/search/description', 'searchDescription');
+        Route::get('/videos/search/tag', 'searchTag');
+        Route::get('/videos/search/user', 'searchUser');
     });
 
     // new tag routes
