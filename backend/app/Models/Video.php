@@ -56,7 +56,8 @@ class Video extends Model
         return [
             "title" => $this->title,
             "description" => $this->description,
-            // "tags" => $this->tags->tag,
+            "tags" => $this->tags,
+            "user" => $this->user->username
         ];
     }
 

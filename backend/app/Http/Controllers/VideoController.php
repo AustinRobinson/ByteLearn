@@ -55,7 +55,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->get();
 
         return response()->json([
-            'message' => 'Search results on titles for '.$request->search,
+            'message' => 'Search results for '.$request->search,
             'data' => $search
         ], 200);
     }
@@ -69,7 +69,7 @@ class VideoController extends Controller
         ])->get();
         
         return response()->json([
-            'message' => 'Search results for '.$request->search,
+            'message' => 'Search results on titles for '.$request->search,
             'data' => $search
         ], 200);
     }
@@ -83,7 +83,7 @@ class VideoController extends Controller
         ])->get();
         
         return response()->json([
-            'message' => 'Search results for '.$request->search,
+            'message' => 'Search results on descriptions for '.$request->search,
             'data' => $search
         ], 200);
     }
@@ -93,11 +93,11 @@ class VideoController extends Controller
      */
     public function searchTag(Request $request): JsonResponse {
         $search = Video::search($request->search)->options([
-            'attributesToSearchOn' => ['tag']
+            'attributesToSearchOn' => ['tags']
         ])->get();
         
         return response()->json([
-            'message' => 'Search results for '.$request->search,
+            'message' => 'Search results on tags for '.$request->search,
             'data' => $search
         ], 200);
     }
@@ -111,7 +111,7 @@ class VideoController extends Controller
         ])->get();
         
         return response()->json([
-            'message' => 'Search results for '.$request->search,
+            'message' => 'Search results on users for '.$request->search,
             'data' => $search
         ], 200);
     }

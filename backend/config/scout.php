@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Video;
+use App\Models\User;
 
 return [
 
@@ -142,8 +143,16 @@ return [
             // ],
 
             Video::class => [
-                'filterableAttributes' => ['title', 'description', 'tags'],
-            ]
+                'filterableAttributes' => ['title', 'description', 'tags', 'users'],
+            ],
+
+            User::class => [
+                'filterableAttributes' => ['username'],
+            ],
+
+            Tag::class => [
+                'filterableAttributes' => ['tag'],
+            ],
 
         ],
     ],
