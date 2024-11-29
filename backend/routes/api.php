@@ -30,5 +30,13 @@ Route::middleware([AuthenticateToken::class])->group(function () {
 
     // Video routes
     Route::get('/videos', VideoFeedController::class);
+
+    // Video likes
+    Route::post('/videos/{video}/like', [VideoLikeController::class, 'store']);
+    Route::delete('/videos/{video}/like', [VideoLikeController::class, 'destroy']);
+
+    // Video comments
+    Route::get('/videos/{video}/comments', [VideoCommentController::class, 'index']);
+    Route::post('/videos/{video}/comments', [VideoCommentController::class, 'store']);
 });
 
