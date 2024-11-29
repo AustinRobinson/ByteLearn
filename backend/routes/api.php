@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Video;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideoFeedController;
 use App\Http\Middleware\AuthenticateToken;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -28,8 +29,6 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     Route::delete('users/{user}/tags', [TagController::class, 'detachFromUser']);
 
     // Video routes
-    Route::get('/videos', [VideoController::class, 'index']);
-    Route::post('/videos', [VideoController::class, 'store']);
-    Route::get('/videos/{video}', [VideoController::class, 'show']);
+    Route::get('/videos', VideoFeedController::class);
 });
 
