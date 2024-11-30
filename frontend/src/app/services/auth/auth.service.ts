@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 /**
  * Signup form data interface.
@@ -27,7 +28,7 @@ export interface LoginFormData {
  * Login response interface.
  */
 export interface LoginResponse {
-  accessToken: string;
+  access_token: string;
 }
 
 
@@ -49,11 +50,24 @@ export interface ApiErrorResponse extends HttpErrorResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private accessToken: string | null = null;
+  private _accessToken: string | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) { }
 
+
+  /**
+     * Get the access token.
+     *
+     * @returns the access token or null if it is not set
+     */
+  public get accessToken(): string | null {
+    return this._accessToken
   }
+
+  public isAuthenticated(): boolean {
+    return !!this._accessToken;
+  }
+
 
   /**
    * Make a signup request to the API.
@@ -72,7 +86,44 @@ export class AuthService {
   public login(formData: LoginFormData): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/login`, formData).pipe(
       tap((response) => {
-        this.accessToken = response.accessToken;
+        this._accessToken = response.access_token;
+      }),
+    );
+  }
+
+  /**
+   * Make a refresh request to the API.
+   *
+   * @returns a cold Observable with the response
+   */
+  public refresh(): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/refresh`, null, {
+      withCredentials: true,
+    }).pipe(
+      tap((response) => {
+        this._accessToken = response.access_token;
+      }),
+    );
+  }
+
+  /**
+   * Make a logout request to the API.
+   *
+   * @returns a cold Observable with the response
+   */
+  public logout(): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/logout`, null, {
+      observe: 'response',
+      withCredentials: true,
+    }).pipe(
+      tap((response: HttpResponse<any>) => {
+        console.log('Logging out');
+        if (response.status == 204) {
+          this._accessToken = null;
+          this.router.navigateByUrl('/');
+        } else {
+          throw new Error('Failed to logout');
+        }
       }),
     );
   }
