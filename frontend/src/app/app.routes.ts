@@ -2,10 +2,13 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { authGuard } from './guards/auth/auth.guard';
-import { authResolver } from './resolvers/auth/auth.resolver';
 
 export const routes: Routes = [
+  // {
+  //   path: 'protected-route-example',
+  //   component: ProtectedComponent,
+  //   canActivate: [authGuard]
+  // },
   {
     path: 'login',
     component: LoginComponent
@@ -13,17 +16,10 @@ export const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
-    // resolve: {
-    //   auth: authResolver,
-    // },
-    canActivate: [authGuard]
   },
   {
     path: '',
     component: HomeComponent,
-    // resolve: {
-    //   auth: authResolver,
-    // },
   },
   {
     path: '**',
