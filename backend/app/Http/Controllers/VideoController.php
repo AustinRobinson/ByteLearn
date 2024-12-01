@@ -72,6 +72,7 @@ class VideoController extends Controller
             'message' => 'Search results on titles for '.$request->search,
             'data' => $search
         ], 200);
+
     }
 
     /**
@@ -116,19 +117,19 @@ class VideoController extends Controller
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Video $video)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request, Video $video)
+    // {
+    //     //
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Video $video)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(Video $video)
+    // {
+    //     //
+    // }
 }
