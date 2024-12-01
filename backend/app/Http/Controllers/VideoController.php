@@ -17,7 +17,7 @@ class VideoController extends Controller
         return response()->json([
             'message' => "Returning all videos.",
             'data' => $data
-        ], 201);
+        ], 200);
     }
 
     /**
