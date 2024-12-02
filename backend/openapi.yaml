@@ -255,18 +255,19 @@ paths:
 
             requestBody:
                 content:
-                    s3_key:
+                    application/json:
                         schema:
-                            type: string
-                            example: "8f4d47b85154b359265c390ede6ade92"
-                    title:
-                        schema:
-                            type: string
-                            example: "Et est est quia nulla."
-                    description:
-                        schema:
-                            type: string
-                            example: "Aut dolorem quasi tenetur ..."
+                            type: object
+                            properties:
+                                s3_key:
+                                    type: string
+                                    example: "8f4d47b85154b359265c390ede6ade92"
+                                title:
+                                    type: string
+                                    example: "Et est est quia nulla."
+                                description:
+                                    type: string
+                                    example: "Aut dolorem quasi tenetur ..."
 
             responses:
                 201:
@@ -290,6 +291,287 @@ paths:
                       type: string
                       example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The auth bearer token stored in the header; key is "Authorization"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: The search query.
+                                    example: "test"
+
+            responses:
+                200:
+                    description: Returns all videos matching the query
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    video:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                                            user_id:
+                                                type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                                            s3_key:
+                                                type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
+                                            title:
+                                                type: string
+                                                example: "Non ipsa dolorem qui."
+                                            description:
+                                                type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                                            likes:
+                                                type: integer
+                                                example: 0
+                                            is_banned:
+                                                type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+    /videos/search/title:
+        get:
+            summary: "Get search results on video title field only"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: The search query.
+                                    example: "test"
+
+            responses:
+                200:
+                    description: Returns all videos matching the query
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    video:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                                            user_id:
+                                                type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                                            s3_key:
+                                                type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
+                                            title:
+                                                type: string
+                                                example: "Non ipsa dolorem qui."
+                                            description:
+                                                type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                                            likes:
+                                                type: integer
+                                                example: 0
+                                            is_banned:
+                                                type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+    /videos/search/description:
+        get:
+            summary: "Get search results on video description field only"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: The search query.
+                                    example: "test"
+
+            responses:
+                200:
+                    description: Returns all videos matching the query
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    video:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                                            user_id:
+                                                type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                                            s3_key:
+                                                type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
+                                            title:
+                                                type: string
+                                                example: "Non ipsa dolorem qui."
+                                            description:
+                                                type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                                            likes:
+                                                type: integer
+                                                example: 0
+                                            is_banned:
+                                                type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+
+    /videos/search/tag:
+        get:
+            summary: "Get search results on video tags only"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: The search query.
+                                    example: "test"
+
+            responses:
+                200:
+                    description: Returns all videos matching the query
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    video:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                                            user_id:
+                                                type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                                            s3_key:
+                                                type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
+                                            title:
+                                                type: string
+                                                example: "Non ipsa dolorem qui."
+                                            description:
+                                                type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                                            likes:
+                                                type: integer
+                                                example: 0
+                                            is_banned:
+                                                type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+
+    /videos/search/user:
+        get:
+            summary: "Get search results on video user only"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                search:
+                                    type: string
+                                    description: The search query.
+                                    example: "test"
+
             responses:
                 200:
                     description: Returns all videos matching the query
