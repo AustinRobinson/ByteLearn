@@ -17,6 +17,16 @@
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html",
       "webRoot": "${workspaceFolder}/frontend"
+    },
+    {
+        "name": "Listen for Xdebug",
+        "type": "php",
+        "request": "launch",
+        "port": 9003,
+        "pathMappings": {
+            "/var/www/html": "${workspaceFolder}/backend"
+        },
+        "hostname": "localhost"
     }
   ]
 }

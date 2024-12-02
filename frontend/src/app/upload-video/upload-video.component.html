@@ -1,0 +1,59 @@
+<app-header />
+<main class="w-4/5 mx-auto mt-8 mb-16">
+  <h1 class="text-2xl font-bold mb-8">Upload a Video</h1>
+  <form>
+    <div (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)"
+      (drop)="onDropSuccess($event)"
+      class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10" [class]="{
+        'bg-indigo-600/25': dragCounter > 0,
+      }">
+      <div class="text-center">
+        <svg class="mx-auto size-12 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          strokeWidth={1.5} stroke="currentColor" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+        </svg>
+        <div class="mt-4 flex text-sm/6 text-gray-600">
+          <label for="file-upload"
+            class="relative cursor-pointer rounded-md font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+            <span>Upload a file</span>
+            <input id="file-upload" name="file-upload" type="file" [accept]="requiredFileType"
+              (change)="onFileSelected($event)" class="sr-only">
+          </label>
+          <p class="pl-1">or drag and drop</p>
+        </div>
+        <p class="text-xs/5 text-gray-600">mp4 up to 500MB</p>
+      </div>
+    </div>
+  </form>
+  @if (videoUrl) {
+  <h2 class="text-xl font-bold my-8">Preview Video</h2>
+  <video [src]="videoUrl" height="600" controls class="mx-auto"></video>
+  <h2 class="text-xl font-bold mt-16">Video Details</h2>
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="sm:col-span-6">
+        <label for="title" class="block text-sm/6 font-medium text-gray-900">Title</label>
+        <div class="mt-2">
+          <input id="title" formControlName="title" type="text"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+        </div>
+      </div>
+
+      <div class="col-span-full">
+        <label for="description" class="block text-sm/6 font-medium text-gray-900">Description</label>
+        <div class="mt-2">
+          <textarea id="description" formControlName="description" rows="3"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+      <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+      <button type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Upload
+        Video</button>
+    </div>
+  </form>
+  }
+</main>
