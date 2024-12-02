@@ -179,7 +179,7 @@ paths:
                                 $ref: "#/components/schemas/ErrorResponse"
     /videos/all:
         get:
-            summary: 'Get all videos (testing only)'
+            summary: "Get all videos (testing only)"
             parameters:
                 - name: refresh_token
                   in: cookie
@@ -188,13 +188,13 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: bearer
+                - name: access_token
                   in: header
                   required: true
                   schema:
-                    type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
             responses:
                 200:
                     description: Returns all videos
@@ -206,18 +206,128 @@ paths:
                                     video:
                                         type: object
                                         properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
                                             user_id:
                                                 type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
                                             s3_key:
                                                 type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
                                             title:
                                                 type: string
+                                                example: "Non ipsa dolorem qui."
                                             description:
                                                 type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
                                             likes:
                                                 type: integer
+                                                example: 0
                                             is_banned:
                                                 type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+
+    /videos/upload:
+        post:
+            summary: "Post a video by S3 token (testing only; subject to change)"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+
+            requestBody:
+                content:
+                    s3_key:
+                        schema:
+                            type: string
+                            example: "8f4d47b85154b359265c390ede6ade92"
+                    title:
+                        schema:
+                            type: string
+                            example: "Et est est quia nulla."
+                    description:
+                        schema:
+                            type: string
+                            example: "Aut dolorem quasi tenetur ..."
+
+            responses:
+                201:
+                    description: Video uploaded
+
+    /videos/search/all:
+        get:
+            summary: "Get search results on all video fields (title, description, tags, users)"
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+                - name: access_token
+                  in: header
+                  required: true
+                  schema:
+                      type: string
+                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The auth bearer token stored in the header; key is "Authorization"
+            responses:
+                200:
+                    description: Returns all videos matching the query
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    video:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                                            user_id:
+                                                type: string
+                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                                            s3_key:
+                                                type: string
+                                                example: "8f6297b99e93c653f281ef88908b3034"
+                                            title:
+                                                type: string
+                                                example: "Non ipsa dolorem qui."
+                                            description:
+                                                type: string
+                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                                            likes:
+                                                type: integer
+                                                example: 0
+                                            is_banned:
+                                                type: boolean
+                                                example: false
+                                            created_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
+                                            updated_at:
+                                                type: string
+                                                example: "2024-11-22T22:02:27.000000Z"
 
 components:
     schemas:
