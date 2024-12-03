@@ -188,13 +188,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             responses:
                 200:
                     description: Returns all videos
@@ -236,7 +231,7 @@ paths:
 
     /videos/upload:
         post:
-            summary: "Post a video by S3 token (testing only; subject to change)"
+            summary: "Post a video by using a multipart form"
             parameters:
                 - name: refresh_token
                   in: cookie
@@ -245,23 +240,19 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
-                    application/json:
+                    multipart/form-data:
                         schema:
                             type: object
                             properties:
-                                s3_key:
+                                video:
                                     type: string
-                                    example: "8f4d47b85154b359265c390ede6ade92"
+                                    format: binary
+                                    description: "Video file. Must be .mp4"
+
                                 title:
                                     type: string
                                     example: "Et est est quia nulla."
@@ -284,13 +275,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
                     application/json:
@@ -351,13 +337,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
                     application/json:
@@ -418,13 +399,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
                     application/json:
@@ -486,13 +462,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
                     application/json:
@@ -554,13 +525,8 @@ paths:
                       type: string
                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                   description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
                     application/json:
@@ -610,6 +576,44 @@ paths:
                                             updated_at:
                                                 type: string
                                                 example: "2024-11-22T22:02:27.000000Z"
+    /videos/url:
+        get:
+            summary: "Get the temporary URL for a given s3_key."
+            parameters:
+                - name: refresh_token
+                  in: cookie
+                  required: true
+                  schema:
+                      type: string
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: The refresh token stored in the cookie
+            security:
+                - bearerAuth: []
+
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                s3_key:
+                                    type: string
+                                    description: The s3_key to get the URL for.
+                                    example: "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+            responses:
+                200:
+                    description: Returns the pre-signed temp URL.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "Temporary video link for 9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+                                    data:
+                                        type: string
+                                        example: "https://bytelearn-prod...Signature=4658069191ee3a7ebbbc1116188a1e13ebb84d637a9d55d700ba7f46ec932447"
 
 components:
     schemas:
