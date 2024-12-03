@@ -23,20 +23,20 @@ Route::middleware([AuthenticateToken::class])->group(function () {
         return User::all();
     });
 
-    // new tag routes
+    // tag routes
     Route::apiResource('tags', TagController::class)->only(['index', 'store', 'destroy']);
     Route::post('users/{user}/tags', [TagController::class, 'attachToUser']);
     Route::delete('users/{user}/tags', [TagController::class, 'detachFromUser']);
 
     // Video routes
-    Route::get('/videos', VideoFeedController::class);
+    Route::get('/videos/feed', VideoFeedController::class);
 
-    // Video likes
-    Route::post('/videos/{video}/like', [VideoLikeController::class, 'store']);
-    Route::delete('/videos/{video}/like', [VideoLikeController::class, 'destroy']);
+    // Video likes 
+    Route::post('/videos/like/{video}', [VideoLikeController::class, 'store']);
+    Route::delete('/videos/like/{video}', [VideoLikeController::class, 'destroy']);
 
     // Video comments
-    Route::get('/videos/{video}/comments', [VideoCommentController::class, 'index']);
-    Route::post('/videos/{video}/comments', [VideoCommentController::class, 'store']);
+    Route::get('/videos/comments/{video}', [VideoCommentController::class, 'index']);
+    Route::post('/videos/comments/{video}', [VideoCommentController::class, 'store']);
 });
 

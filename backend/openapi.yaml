@@ -177,6 +177,297 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+                
+  /videos/feed:
+    get:
+      summary: Get personalized video feed
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            example: 0
+          description: Number of items to skip
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            example: 20
+          description: Maximum number of items to return
+      responses:
+        200:
+          description: Successfully retrieved video feed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "12345678-abcd-1234-abcd-1234567890ab"
+                        title:
+                          type: string
+                          example: "Learn Python in 60 Seconds"
+                        description:
+                          type: string
+                          example: "Quick Python tutorial for beginners"
+                        video_url:
+                          type: string
+                          example: "http://localhost/storage/videos/python-tutorial.mp4"
+                        created_at:
+                          type: string
+                          format: date-time
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "12345678-abcd-1234-abcd-1234567890ab"
+                            username:
+                              type: string
+                              example: "techteacher"
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: "12345678-abcd-1234-abcd-1234567890ab"
+                              tag:
+                                type: string
+                                example: "python"
+                        is_liked:
+                          type: boolean
+                          example: false
+                        has_watched:
+                          type: boolean
+                          example: false
+                        comment_count:
+                          type: integer
+                          example: 5
+                        matches_interests:
+                          type: boolean
+                          example: true
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 100
+                      offset:
+                        type: integer
+                        example: 0
+                      limit:
+                        type: integer
+                        example: 20
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /videos/like/{video}:
+    post:
+      summary: Like a video
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: video
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "12345678-abcd-1234-abcd-1234567890ab"
+          description: The video ID
+      responses:
+        200:
+          description: Video liked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Video liked successfully"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Unlike a video
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: video
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "12345678-abcd-1234-abcd-1234567890ab"
+          description: The video ID
+      responses:
+        200:
+          description: Video unliked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Video unliked successfully"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /videos/comments/{video}:
+    get:
+      summary: Get video comments
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: video
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "12345678-abcd-1234-abcd-1234567890ab"
+          description: The video ID
+      responses:
+        200:
+          description: Successfully retrieved comments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "12345678-abcd-1234-abcd-1234567890ab"
+                        text:
+                          type: string
+                          example: "Great tutorial!"
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "12345678-abcd-1234-abcd-1234567890ab"
+                            username:
+                              type: string
+                              example: "learner123"
+                        replies:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: "87654321-dcba-4321-dcba-0987654321fe"
+                              text:
+                                type: string
+                                example: "Thanks for the feedback!"
+                              user:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: "12345678-abcd-1234-abcd-1234567890ab"
+                                  username:
+                                    type: string
+                                    example: "techteacher"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Add a comment to video
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: video
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "12345678-abcd-1234-abcd-1234567890ab"
+          description: The video ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  example: "Great tutorial!"
+                comment_id:
+                  type: string
+                  example: "12345678-abcd-1234-abcd-1234567890ab"
+                  description: "Optional parent comment ID for replies"
+      responses:
+        201:
+          description: Comment added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Comment added successfully"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "12345678-abcd-1234-abcd-1234567890ab"
+                      text:
+                        type: string
+                        example: "Great tutorial!"
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: "12345678-abcd-1234-abcd-1234567890ab"
+                          username:
+                            type: string
+                            example: "learner123"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
