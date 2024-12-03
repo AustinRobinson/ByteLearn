@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     // allow requests from localhost on ports 80 (HTTP), 443 (HTTPS) and 4200 (Angular dev server)
-    'allowed_origins' => ['localhost:80', 'localhost:443', 'localhost:4200'],
+    'allowed_origins' => ['http://bytelearn.tech', 'https://bytelearn.tech:8080', 'http://localhost', 'https://localhost', 'http://localhost:4200'],
 
     'allowed_origins_patterns' => [],
 
