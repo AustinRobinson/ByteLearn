@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 
 class Video extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +46,21 @@ class Video extends Model
             'is_banned' => 'boolean',
         ];
     }
+
+    /**
+     * Set attributes that should be searchable by Meilisearch
+     * 
+     * @return array
+     */
+    public function toSearchableArray(): array {
+        return [
+            "title" => $this->title,
+            "description" => $this->description,
+            "tags" => $this->tags,
+            "user" => $this->user->username
+        ];
+    }
+
 
     /**
      * The user that owns the video.

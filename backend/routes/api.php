@@ -5,19 +5,39 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticateToken;
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/refresh', [AuthController::class, 'refresh']);
-Route::post('/logout', [AuthController::class, 'logout']);
+// Unprotected routes
+Route::controller(AuthController::class)->group(function() {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    Route::post('/refresh', 'refresh');
+    Route::post('/logout', 'logout');
+});
 
-// protected routes (require authentication)
+// Protected routes (require authentication)
 Route::middleware([AuthenticateToken::class])->group(function () {
-    // user routes
-    Route::get('/user', [AuthController::class, 'user']);
-    Route::get('/user/{id}', function (Request $request, string $id) {
-        return User::all();
+    // Auth routes
+    Route::controller(AuthController::class)->group(function() {
+        Route::get('/user', 'user');
+    });
+
+    // User routes
+    Route::controller(UserController::class)->group(function() {
+
+    });
+
+    // Video routes
+    Route::controller(VideoController::class)->group(function() {
+        Route::get('/videos/all', 'all');
+        Route::post('/videos/upload', 'upload');
+        Route::get('/videos/search/all', 'searchAll');
+        Route::get('/videos/search/title', 'searchTitle');
+        Route::get('/videos/search/description', 'searchDescription');
+        Route::get('/videos/search/tag', 'searchTag');
+        Route::get('/videos/search/user', 'searchUser');
     });
 
     // new tag routes

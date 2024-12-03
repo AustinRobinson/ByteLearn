@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, Notifiable, HasUuids, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +36,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Set attributes that should be searchable by Meilisearch
+     * 
+     * @return array
+     */
+    public function toSearchableArray(): array {
+        return [
+            "username" => $this->username,
+        ];
+    }
 
     /**
      * Get the attributes that should be cast.
