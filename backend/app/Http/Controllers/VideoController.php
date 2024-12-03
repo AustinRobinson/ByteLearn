@@ -35,10 +35,8 @@ class VideoController extends Controller
 
         $user = $request->user();
         $video_file = $request->file('video');
-        // $video_name = $video_file->hashName();
-        // $video_ext = $video_file->extension();
 
-        $path = Storage::disk('s3-videos')->putFile($user->id, $video_file, 'public');
+        $path = Storage::disk('s3-videos')->putFile($user->id, $video_file);
 
         $video = Video::create([
             'user_id' => $user->id,
