@@ -25,23 +25,28 @@ class VideoFeedController extends Controller
         $user = $request->user();
         $userInterestTags = $user->interests()
             ->where('is_banned', false)
-            ->pluck('id');
+            ->pluck('id')
+            ->toArray();
 
         $query = Video::with(['user', 'tags'])
             ->where('is_banned', false);
 
-        if ($userInterestTags->isNotEmpty()) {
+        if (!empty($userInterestTags)) {
+            // Get videos matching user interests first
             $matchingVideos = (clone $query)
                 ->whereHas('tags', function ($q) use ($userInterestTags) {
                     $q->whereIn('tags.id', $userInterestTags);
                 });
 
+            // Then get videos that don't match interests
             $otherVideos = (clone $query)
                 ->whereDoesntHave('tags', function ($q) use ($userInterestTags) {
                     $q->whereIn('tags.id', $userInterestTags);
                 });
 
             $query = $matchingVideos->union($otherVideos);
+        } else {
+            $query = $query->randomFeed($offset / $limit);
         }
 
         // Apply pagination
@@ -70,13 +75,15 @@ class VideoFeedController extends Controller
                     'is_liked' => $video->likedBy()->where('user_id', $user->id)->exists(),
                     'has_watched' => $video->watchedBy()->where('user_id', $user->id)->exists(),
                     'comment_count' => $video->comments()->count(),
-                    'matches_interests' => $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
+                    'matches_interests' => !empty($userInterestTags) && 
+                        $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
                 ];
             }),
             'meta' => [
                 'total' => $total,
                 'offset' => $offset,
-                'limit' => $limit
+                'limit' => $limit,
+                'has_interests' => !empty($userInterestTags)
             ]
         ]);
     }

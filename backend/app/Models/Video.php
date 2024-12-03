@@ -44,8 +44,12 @@ class Video extends Model
 
 
     /**
-     * The user that owns the video.
+     * Scope for random video feed with pagination support
      */
+    public function scopeRandomFeed($query, $seed = 0)
+    {
+        return $query->inRandomOrder($seed);
+    }
 
     public function user(): BelongsTo
     {
@@ -64,7 +68,8 @@ class Video extends Model
 
     public function watchedBy(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_watched_video')->withPivot('watched_at');
+        return $this->belongsToMany(User::class, 'user_watched_video')
+            ->withPivot('watched_at');
     }
 
     public function comments(): HasMany
