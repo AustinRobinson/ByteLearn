@@ -23,6 +23,23 @@ class VideoController extends Controller
     }
 
     /**
+     * Get the temporary video link
+     */
+    public function tempLink(Request $request): JsonResponse {
+        $validated = $request->validate([
+            's3_key' => ['required', 'string', 'max:255']
+        ]);
+
+        $url = Storage::disk('s3-videos')->temporaryUrl($validated['s3_key'], now()->addMinutes(5));
+
+        return response()->json([
+            'message' => 'Temporary video link for '.$validated['s3_key'],
+            'data' => $url
+        ], 200);
+    }
+    
+
+    /**
      * Store a newly created resource in storage.
      */
     public function upload(Request $request): JsonResponse
