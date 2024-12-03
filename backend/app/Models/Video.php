@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Video extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids, Searchable;
 
     protected $fillable = [
         'user_id',
@@ -26,6 +27,25 @@ class Video extends Model
         'is_banned' => 'boolean',
         'likes' => 'integer',
     ];
+
+    /**
+     * Set attributes that should be searchable by Meilisearch
+     * 
+     * @return array
+     */
+    public function toSearchableArray(): array {
+        return [
+            "title" => $this->title,
+            "description" => $this->description,
+            "tags" => $this->tags,
+            "user" => $this->user->username
+        ];
+    }
+
+
+    /**
+     * The user that owns the video.
+     */
 
     public function user(): BelongsTo
     {
