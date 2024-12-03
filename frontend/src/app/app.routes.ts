@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { SignupComponent } from './signup/signup.component';
-import { UploadVideoComponent } from './upload-video/upload-video.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
 
 export const routes: Routes = [
   // {

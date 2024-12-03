@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../components/header/header.component";
+import { HeaderComponent } from "../../components/header/header.component";
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { uploadFormData, VideoService } from '../../services/video/video.service';
+import { uploadFormData, VideoService } from '../../../services/video/video.service';
 
 @Component({
   selector: 'app-upload-video',
@@ -23,8 +23,7 @@ export class UploadVideoComponent {
     description: new FormControl(''),
   });
 
-  public constructor(private videoService: VideoService)
-  { }
+  public constructor(private videoService: VideoService) { }
 
   public get title() {
     return this.uploadForm.get('title');
