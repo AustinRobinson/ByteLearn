@@ -37,8 +37,11 @@ export class VideoFeedComponent implements OnInit {
     "is_liked": false,
     "has_watched": false,
     "comment_count": 2,
+    "like_count": 56,
     "matches_interests": true
   }
+
+  public isVideoLiked = false;
 
   public isCommentsOpen = false;
   public comments = [
@@ -118,6 +121,15 @@ export class VideoFeedComponent implements OnInit {
 
   public toggleDetails(): void {
     this.isDetailsOpen = !this.isDetailsOpen;
+  }
+
+  public toggleVideoLike(): void {
+    if (!this.isVideoLiked) {
+      ++this.details.like_count;
+    } else {
+      --this.details.like_count;
+    }
+    this.isVideoLiked = !this.isVideoLiked;
   }
 
   public toggleComments(): void {

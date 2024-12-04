@@ -39,7 +39,22 @@
               </div>
             }
           </div>
-          <p>{{ details.created_at | date: 'medium' }}</p>
+          <h3 class="text-xl font-semibold">Likes</h3>
+          <div class="flex justify-between">
+            <p>{{ details.like_count }}</p>
+            <button (click)="toggleVideoLike()" class="flex items-center " [class]="{
+              'text-gray-500': !isVideoLiked,
+              'hover:text-gray-600': !isVideoLiked,
+              'text-red-500': isVideoLiked,
+              'hover:text-red-400': isVideoLiked,
+            }" >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  d="M3.172 5a4 4 0 015.656 0L10 6.172l1.172-1.172a4 4 0 115.656 5.656l-1.172 1.172L10 17.414l-5.656-5.656L3.172 10a4 4 0 010-5z" />
+              </svg>
+              <p>{{ isVideoLiked ? 'Liked' : 'Not Liked' }}</p>
+            </button>
+          </div>
         </div>
         }
       </div>
