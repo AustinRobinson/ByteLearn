@@ -234,158 +234,71 @@ paths:
             summary: "Get search results on all video fields (title, description, tags, users)"
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/Video"
+                    $ref: "#/components/responses/VideoQueryResponse"
 
     /videos/search/title:
         get:
             summary: "Get search results on video title field only"
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/Video"
+                    $ref: "#/components/responses/VideoQueryResponse"
+
+
     /videos/search/description:
         get:
             summary: "Get search results on video description field only"
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/Video"
+                    $ref: "#/components/responses/VideoQueryResponse"
 
     /videos/search/tag:
         get:
             summary: "Get search results on video tags only"
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/Video"
+                    $ref: "#/components/responses/VideoQueryResponse"
 
     /videos/search/user:
         get:
             summary: "Get search results on video user only"
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/Video"
+                    $ref: "#/components/responses/VideoQueryResponse"
+                    
 
     /videos/url:
         get:
             summary: "Get the temporary URL for a given s3_key."
             parameters:
                 - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/S3QueryParam"
             security:
                 - bearerAuth: []
-
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                s3_key:
-                                    type: string
-                                    description: The s3_key to get the URL for.
-                                    example: "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
             responses:
                 200:
                     description: Returns the pre-signed temp URL.
@@ -411,6 +324,24 @@ components:
                 type: string
                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
             description: The refresh token stored in the cookie.
+
+        SearchQueryParam:
+            name: search
+            in: query
+            required: true
+            schema:
+                type: string
+                example: test
+            description: The query to search on.
+
+        S3QueryParam:
+            name: s3_key
+            in: query
+            required: true
+            schema:
+                type: string
+                example: "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+            description: The s3_key to get the URL for.
 
     schemas:
         ErrorResponse:
@@ -527,6 +458,16 @@ components:
                         $ref: "#/components/schemas/Tag"
                 user:
                     $ref: "#/components/schemas/User"
+
+    responses:
+        VideoQueryResponse:
+            description: Returns all videos matching the query
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                        $ref: "#/components/schemas/Video"
 
 
     securitySchemes:
