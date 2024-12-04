@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'http://localhost/api',
+  apiBaseUrl: 'https://bytelearn.tech/api',
 };

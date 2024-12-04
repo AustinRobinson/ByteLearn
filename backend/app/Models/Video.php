@@ -28,7 +28,9 @@ class Video extends Model
         'likes' => 'integer',
     ];
 
+
     /**
+     * Scope for random video feed with pagination support
      * Set attributes that should be searchable by Meilisearch
      * 
      * @return array
@@ -44,7 +46,7 @@ class Video extends Model
 
 
     /**
-     * Scope for random video feed with pagination support
+     * The user that owns the video.
      */
     public function scopeRandomFeed($query, $seed = 0)
     {

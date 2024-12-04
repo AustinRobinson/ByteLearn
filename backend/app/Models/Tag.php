@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Searchable;
 
 class Tag extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
 
     /**
@@ -21,6 +22,17 @@ class Tag extends Model
         'tag',
         'is_banned',
     ];
+
+    /**
+     * Set attributes that should be searchable by Meilisearch
+     * 
+     * @return array
+     */
+    public function toSearchableArray(): array {
+        return [
+            "tag" => $this->tag,
+        ];
+    }
 
     /**
      * Indicates if timestamps created_at and updated_at should be created.

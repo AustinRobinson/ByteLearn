@@ -86,6 +86,7 @@ services:
         environment:
             MEILI_NO_ANALYTICS: '${MEILISEARCH_NO_ANALYTICS:-false}'
             MEILI_LOG_LEVEL: '${MEILI_LOG_LEVEL}'
+            MEILISEARCH_KEY: '${MEILISEARCH_KEY}'
         volumes:
             - 'sail-meilisearch:/meili_data'
         networks:

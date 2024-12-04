@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../components/header/header.component";
+import { HeaderComponent } from "../../components/header/header.component";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ApiErrorResponse, AuthService, SignupFormData } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';

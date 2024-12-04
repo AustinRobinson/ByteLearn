@@ -1,0 +1,569 @@
+{
+	"info": {
+		"_postman_id": "7ebc8d9f-d097-4b66-90d0-8a247ab5075c",
+		"name": "api.Videos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29548059"
+	},
+	"item": [
+		{
+			"name": "All Videos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/videos/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Video",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"s3_key\": \"test_s3_2\",\r\n    \"title\": \"test_video2\",\r\n    \"description\": \"test_description\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search All (One)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search All (Multi)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"et\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Title (One)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"quo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/title",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"title"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Title (Multi)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"et\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/title",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"title"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Description (One)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"temporibus\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/description",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"description"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Description (Many)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/description",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"description"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Tag (One)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"temporibus\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/tag",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search Tag (Many)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/tag",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search User (One)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"j\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Search User (Many)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/search/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"search",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

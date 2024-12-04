@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth/auth.service';
 
 interface HeaderItem {
   label: string;
@@ -14,11 +15,22 @@ interface HeaderItem {
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  isMenuOpen = false;
-
+  isMobileMenuOpen = false;
+  isProfileMenuOpen = false;
   headerItems: HeaderItem[] = [];
+  userProfileImage = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80';
+
+  constructor(public authService: AuthService) { }
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleProfileMenu() {
+    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  }
+
+  logout() {
+    this.authService.logout().subscribe();
   }
 }
