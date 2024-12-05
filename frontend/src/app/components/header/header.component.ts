@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
+import { SearchComponent } from '../search/search.component';
+import { Router, RouterLink } from '@angular/router';
 
 interface HeaderItem {
   label: string;
@@ -10,7 +12,7 @@ interface HeaderItem {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, SearchComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
