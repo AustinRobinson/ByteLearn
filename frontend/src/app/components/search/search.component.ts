@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../../services/data/data.service';
+import { SearchVideosResult } from '../../models/video.model';
+import { Router } from '@angular/router';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 @Component({
   selector: 'app-search',
@@ -11,30 +16,48 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchComponent {
   searchQuery: string = '';
-  users: Array<{ name: string }> = [];
-  videos: Array<{ title: string }> = [];
+  videos: Array<SearchVideosResult> = [];
 
-  // Simulated search results
-  allUsers = [{ name: 'John Doe' }, { name: 'Jane Smith' }];
-  allVideos = [{ title: 'Introduction to Angular' }, { title: 'Tailwind CSS Basics' }];
+  constructor(private dataService: DataService, private router: Router) {
+    dayjs.extend(relativeTime);
+  }
 
+  /**
+   * Search for videos based on the search query
+   */
   onSearch() {
     if (this.searchQuery.trim()) {
-      this.users = this.allUsers.filter((user) =>
-        user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
 
-      this.videos = this.allVideos.filter((video) =>
-        video.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
+      // search all video attributes using the data service
+      this.dataService.searchVideos(this.searchQuery).subscribe({
+        next: (value) => {
+          this.videos = value;
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      });
     } else {
-      this.users = [];
       this.videos = [];
     }
   }
 
-  selectItem(item: any) {
-    console.log('Selected:', item);
-    // Handle selection logic
+  /**
+   * Handle the selection of a video from the search results
+   * @param video The video that was selected
+   */
+  selectVideo(video: SearchVideosResult) {
+    // clear the search query and navigate to the video page
+    this.searchQuery = '';
+    this.router.navigate(['/video', video.id])
+  }
+
+  /**
+   * Convert a date string to a relative time string
+   * @param date ISO8601 date string
+   * @returns Relative time string
+   */
+  dateToRelative(date: string): string {
+    return dayjs(date).fromNow();
   }
 }

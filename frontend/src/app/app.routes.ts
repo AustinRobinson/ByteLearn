@@ -20,13 +20,13 @@ export const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: '',
-    component: HomeComponent,
-  },
-  {
     path: 'upload-video',
     component: UploadVideoComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: '',
+    component: HomeComponent,
   },
   {
     path: '**',
