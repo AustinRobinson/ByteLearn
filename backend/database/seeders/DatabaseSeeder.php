@@ -58,13 +58,24 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // Rest of your seeder remains the same...
         // set comment replies to other comments within the last video
         $video = Video::all()->last();
         $comments = Comment::where('video_id', $video->id)->get();
         $comments->get(1)->parentComment()->associate($comments->get(0));
         $comments->get(1)->save();
         $comments->get(1)->replies()->save($comments->get(2));
+
+
+       foreach(Video::all() as $video) {
+           $likers = User::where('id', '!=', $video->user_id)
+               ->inRandomOrder()
+               ->take(rand(0, 3))
+               ->get();
+           
+           if ($likers->isNotEmpty()) {
+               $video->likedBy()->attach($likers->pluck('id'));
+           }
+       }
 
         // create a new follower who follows the first user
         $follower = User::factory()->unverified()->create();
