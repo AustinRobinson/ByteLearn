@@ -1,24 +1,27 @@
 <header class="relative z-10">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 gap-x-6" aria-label="Global">
-    <div class="flex lg:flex-1">
+    <div class="flex">
       <a routerLink="/" class="-m-1.5 p-1.5 text-xl font-bold">
         ByteLearn
       </a>
     </div>
 
-    <div class="hidden lg:flex lg:gap-x-12">
-      <a *ngFor="let item of headerItems" [href]="item.link" class="text-sm font-semibold leading-6 text-gray-900">
+    <div class="hidden lg:flex lg:flex-1 lg:gap-x-12 px-4">
+      <a *ngFor="let item of headerItems" [routerLink]="item.link"
+        class="text-sm font-semibold leading-6 text-gray-900">
         {{ item.label }}
       </a>
     </div>
 
     <div class="flex flex-1 justify-end items-center gap-x-6 w-full lg:w-auto">
 
-      <!-- Search Component -->
-      <app-search class="flex-grow"></app-search>
+
 
 
       <ng-container *ngIf="authService.isAuthenticated(); else guestLinks">
+        <!-- Search Component -->
+        <app-search class="flex-grow"></app-search>
+
         <!-- Authenticated User -->
         <div class="relative flex items-center">
           <button type="button" (click)="toggleProfileMenu()"
