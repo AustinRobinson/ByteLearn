@@ -169,8 +169,6 @@ paths:
     /videos/all:
         get:
             summary: "Get all videos (testing only)"
-            parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
             security:
                 - bearerAuth: []
             responses:
@@ -192,8 +190,6 @@ paths:
     /videos/upload:
         post:
             summary: "Post a video by using a multipart form"
-            parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
             security:
                 - bearerAuth: []
             requestBody:
@@ -233,7 +229,6 @@ paths:
         get:
             summary: "Get search results on all video fields (title, description, tags, users)"
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
@@ -245,7 +240,6 @@ paths:
         get:
             summary: "Get search results on video title field only"
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
@@ -258,7 +252,6 @@ paths:
         get:
             summary: "Get search results on video description field only"
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
@@ -270,7 +263,6 @@ paths:
         get:
             summary: "Get search results on video tags only"
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
@@ -282,7 +274,6 @@ paths:
         get:
             summary: "Get search results on video user only"
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/SearchQueryParam"
             security:
                 - bearerAuth: []
@@ -295,7 +286,6 @@ paths:
         get:
             summary: "Get the temporary URL for a given s3_key."
             parameters:
-                - $ref: "#/components/parameters/RefreshTokenParam"
                 - $ref: "#/components/parameters/S3QueryParam"
             security:
                 - bearerAuth: []
