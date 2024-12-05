@@ -90,13 +90,7 @@ paths:
         post:
             summary: Refresh access token using refresh token
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
+                - $ref: "#/components/parameters/RefreshTokenParam"
             responses:
                 200:
                     description: New access token generated
@@ -125,13 +119,7 @@ paths:
         post:
             summary: Logout user
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
+                - $ref: "#/components/parameters/RefreshTokenParam"
             responses:
                 204:
                     description: User logged out successfully
@@ -177,91 +165,47 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/ErrorResponse"
+
     /videos/all:
         get:
             summary: "Get all videos (testing only)"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
+                - $ref: "#/components/parameters/RefreshTokenParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
                     description: Returns all videos
                     content:
                         application/json:
                             schema:
-                                type: array
+                                type: object
                                 properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                                    message:
+                                        type: string
+                                        example: "Returning all videos."
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/Video"
 
     /videos/upload:
         post:
-            summary: "Post a video by S3 token (testing only; subject to change)"
+            summary: "Post a video by using a multipart form"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+            security:
+                - bearerAuth: []
             requestBody:
                 content:
-                    application/json:
+                    multipart/form-data:
                         schema:
                             type: object
                             properties:
-                                s3_key:
+                                video:
                                     type: string
-                                    example: "8f4d47b85154b359265c390ede6ade92"
+                                    format: binary
+                                    description: "Video file. Must be an .mp4 file."
                                 title:
                                     type: string
                                     example: "Et est est quia nulla."
@@ -272,346 +216,133 @@ paths:
             responses:
                 201:
                     description: Video uploaded
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "Video uploaded successfully."
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/VideoWithTagUser"
 
     /videos/search/all:
         get:
             summary: "Get search results on all video fields (title, description, tags, users)"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                    $ref: "#/components/responses/VideoQueryResponse"
+
     /videos/search/title:
         get:
             summary: "Get search results on video title field only"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                    $ref: "#/components/responses/VideoQueryResponse"
+
+
     /videos/search/description:
         get:
             summary: "Get search results on video description field only"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                    $ref: "#/components/responses/VideoQueryResponse"
 
     /videos/search/tag:
         get:
             summary: "Get search results on video tags only"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
-                    description: Returns all videos matching the query
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                    $ref: "#/components/responses/VideoQueryResponse"
 
     /videos/search/user:
         get:
             summary: "Get search results on video user only"
             parameters:
-                - name: refresh_token
-                  in: cookie
-                  required: true
-                  schema:
-                      type: string
-                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The refresh token stored in the cookie
-                - name: access_token
-                  in: header
-                  required: true
-                  schema:
-                      type: string
-                      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  description: The auth bearer token stored in the header; key is "Authorization"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                search:
-                                    type: string
-                                    description: The search query.
-                                    example: "test"
-
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/SearchQueryParam"
+            security:
+                - bearerAuth: []
             responses:
                 200:
-                    description: Returns all videos matching the query
+                    $ref: "#/components/responses/VideoQueryResponse"
+                    
+
+    /videos/url:
+        get:
+            summary: "Get the temporary URL for a given s3_key."
+            parameters:
+                - $ref: "#/components/parameters/RefreshTokenParam"
+                - $ref: "#/components/parameters/S3QueryParam"
+            security:
+                - bearerAuth: []
+            responses:
+                200:
+                    description: Returns the pre-signed temp URL.
                     content:
                         application/json:
                             schema:
-                                type: array
+                                type: object
                                 properties:
-                                    video:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: string
-                                                example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
-                                            user_id:
-                                                type: string
-                                                example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
-                                            s3_key:
-                                                type: string
-                                                example: "8f6297b99e93c653f281ef88908b3034"
-                                            title:
-                                                type: string
-                                                example: "Non ipsa dolorem qui."
-                                            description:
-                                                type: string
-                                                example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
-                                            likes:
-                                                type: integer
-                                                example: 0
-                                            is_banned:
-                                                type: boolean
-                                                example: false
-                                            created_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
-                                            updated_at:
-                                                type: string
-                                                example: "2024-11-22T22:02:27.000000Z"
+                                    message:
+                                        type: string
+                                        example: "Temporary video link for 9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+                                    data:
+                                        type: string
+                                        example: "https://bytelearn-prod...Signature=4658069191ee3a7ebbbc1116188a1e13ebb84d637a9d55d700ba7f46ec932447"
 
 components:
+    parameters:
+        RefreshTokenParam:
+            name: refresh_token
+            in: cookie
+            required: true
+            schema:
+                type: string
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            description: The refresh token stored in the cookie.
+
+        SearchQueryParam:
+            name: search
+            in: query
+            required: true
+            schema:
+                type: string
+                example: test
+            description: The query to search on.
+
+        S3QueryParam:
+            name: s3_key
+            in: query
+            required: true
+            schema:
+                type: string
+                example: "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+            description: The s3_key to get the URL for.
+
     schemas:
         ErrorResponse:
             type: object
@@ -625,6 +356,119 @@ components:
                         type: array
                         items:
                             type: string
+
+        User:
+            type: object
+            properties:
+                id:
+                    type: string
+                    example: "9d95637b-b586-4d54-a254-32a21fd46926"
+                first_name:
+                    type: string
+                    example: "John"
+                last_name:
+                    type: string
+                    example: "Test"
+                email:
+                    type: string
+                    example: "john.test@example.com"
+                email_verified_at:
+                    type: string
+                    example: null
+                username:
+                    type: string
+                    example: "JohnTest"
+                refresh_token:
+                    type: string
+                    example: null
+                created_at:
+                    type: string
+                    example: "2024-11-26T19:30:47.000000Z"
+                updated_at:
+                    type: string
+                    example: "2024-11-26T19:30:47.000000Z"
+
+        Tag:
+            type: object
+
+        Video:
+            type: object
+            properties:
+                id:
+                    type: string
+                    example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                user_id:
+                    type: string
+                    example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                s3_key:
+                    type: string
+                    example: "8f6297b99e93c653f281ef88908b3034"
+                title:
+                    type: string
+                    example: "Non ipsa dolorem qui."
+                description:
+                    type: string
+                    example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                likes:
+                    type: integer
+                    example: 0
+                is_banned:
+                    type: boolean
+                    example: false
+                created_at:
+                    type: string
+                    example: "2024-11-22T22:02:27.000000Z"
+                updated_at:
+                    type: string
+                    example: "2024-11-22T22:02:27.000000Z"
+
+        VideoWithTagUser:
+            type: object
+            properties:
+                id:
+                    type: string
+                    example: "9d8d8dca-4407-4a87-9857-9f0cf16bea9a"
+                user_id:
+                    type: string
+                    example: "9d8d8dca-4245-4fad-86a8-7630b677ae9f"
+                s3_key:
+                    type: string
+                    example: "8f6297b99e93c653f281ef88908b3034"
+                title:
+                    type: string
+                    example: "Non ipsa dolorem qui."
+                description:
+                    type: string
+                    example: "Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed ..."
+                likes:
+                    type: integer
+                    example: 0
+                is_banned:
+                    type: boolean
+                    example: false
+                created_at:
+                    type: string
+                    example: "2024-11-22T22:02:27.000000Z"
+                updated_at:
+                    type: string
+                    example: "2024-11-22T22:02:27.000000Z"
+                tags:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Tag"
+                user:
+                    $ref: "#/components/schemas/User"
+
+    responses:
+        VideoQueryResponse:
+            description: Returns all videos matching the query
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                        $ref: "#/components/schemas/Video"
+
 
     securitySchemes:
         bearerAuth:

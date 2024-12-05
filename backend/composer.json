@@ -11,6 +11,8 @@
         "laravel/framework": "^11.9",
         "laravel/scout": "^10.11",
         "laravel/tinker": "^2.9",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "league/flysystem-path-prefixing": "^3.0",
         "meilisearch/meilisearch-php": "^1.11"
     },
     "require-dev": {

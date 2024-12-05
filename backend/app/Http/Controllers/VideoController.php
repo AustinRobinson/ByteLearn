@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -21,21 +23,41 @@ class VideoController extends Controller
     }
 
     /**
+     * Get the temporary video link
+     */
+    public function tempLink(Request $request): JsonResponse {
+        $validated = $request->validate([
+            's3_key' => ['required', 'string', 'max:255']
+        ]);
+
+        $url = Storage::disk('s3-videos')->temporaryUrl($validated['s3_key'], now()->addMinutes(5));
+
+        return response()->json([
+            'message' => 'Temporary video link for '.$validated['s3_key'],
+            'data' => $url
+        ], 200);
+    }
+    
+
+    /**
      * Store a newly created resource in storage.
      */
     public function upload(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            's3_key' => ['required', 'string', 'unique:videos', 'max:255'],
+            'video' => ['required', 'file', 'mimetypes:video/mp4'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string']
         ]);
 
         $user = $request->user();
+        $video_file = $request->file('video');
+
+        $path = Storage::disk('s3-videos')->putFile($user->id, $video_file);
 
         $video = Video::create([
             'user_id' => $user->id,
-            's3_key' => $validated['s3_key'],
+            's3_key' => $path,
             'title' => $validated['title'],
             'description' => $validated['description']
         ])->user()->associate($user);
