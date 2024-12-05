@@ -62,8 +62,9 @@ class VideoFeedController extends Controller
                     'id' => $video->id,
                     'title' => $video->title,
                     'description' => $video->description,
-                    'video_url' => url('storage/' . $video->s3_key),
+                    's3_key' => $video->s3_key,        
                     'created_at' => $video->created_at,
+                    'like_count' => $video->likedBy()->count(),
                     'user' => [
                         'id' => $video->user->id,
                         'username' => $video->user->username,
@@ -78,7 +79,7 @@ class VideoFeedController extends Controller
                     'matches_interests' => !empty($userInterestTags) && 
                         $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
                 ];
-            }),
+                }),
             'meta' => [
                 'total' => $total,
                 'offset' => $offset,
