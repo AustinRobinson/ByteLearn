@@ -6,6 +6,7 @@ import { SearchVideosResult } from '../../models/video.model';
 import { Router } from '@angular/router';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -15,6 +16,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
+  private searchSubject = new Subject<string>();
   searchQuery: string = '';
   videos: Array<SearchVideosResult> = [];
 
@@ -23,23 +25,37 @@ export class SearchComponent {
   }
 
   /**
-   * Search for videos based on the search query
+   * Setup a debounced search observable to automatically search for videos
+   * after some time has passed since the last input event
    */
-  onSearch() {
-    if (this.searchQuery.trim()) {
-
-      // search all video attributes using the data service
-      this.dataService.searchVideos(this.searchQuery).subscribe({
-        next: (value) => {
-          this.videos = value;
-        },
-        error: (error: any) => {
-          console.log(error);
+  ngOnInit(): void {
+    // create debounced search observable
+    this.searchSubject.pipe(
+      debounceTime(300), // Wait 300ms after the last input event
+      distinctUntilChanged(), // Only emit when the current value is different than the last
+      switchMap((query: string) => {
+        if (this.searchQuery.trim()) {
+          // search all video attributes using the data service
+          return this.dataService.searchVideos(query);
         }
-      });
-    } else {
-      this.videos = [];
-    }
+        return [];
+      })
+    ).subscribe({
+      next: (value: Array<SearchVideosResult>) => {
+        this.videos = value;
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    });
+  }
+
+  /**
+   * Updates the search query when the user types in the search input
+   * @param query Handle search input
+   */
+  onSearchInput(): void {
+    this.searchSubject.next(this.searchQuery);
   }
 
   /**
