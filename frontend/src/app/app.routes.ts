@@ -28,7 +28,7 @@ export const routes: Routes = [
     component: UploadVideoComponent,
   },
   {
-    path: 'video-feed/:videoId',
+    path: 'video-feed',
     component: VideoFeedComponent,
   },
   {
