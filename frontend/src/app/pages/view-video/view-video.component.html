@@ -1,0 +1,8 @@
+<app-header />
+<main class="w-4/5 mx-auto mt-8 mb-16">
+  @if (videoId()) {
+  @if (videoS3Key$ | async; as videoS3Key) {
+  <app-video-player [videoId]="videoId()" [videoS3Key]="videoS3Key" />
+  }
+  }
+</main>
