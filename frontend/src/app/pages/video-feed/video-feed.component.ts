@@ -21,8 +21,10 @@ export class VideoFeedComponent implements OnInit {
 
   public currentFeed = signal<VideoFeed[]>([]);
   public videoId: Signal<string> = computed(() => {
-    console.log('changed to ' + this.currentFeed()[this.videoIndex()].id);
-    return this.currentFeed()[this.videoIndex()].id
+    return this.currentFeed()[this.videoIndex()].id;
+  });
+  public videoS3Key: Signal<string> = computed(() => {
+    return this.currentFeed()[this.videoIndex()].s3_key;
   });
 
   public isPreviousDisabled: Signal<boolean> = computed(() => {
@@ -41,7 +43,6 @@ export class VideoFeedComponent implements OnInit {
   private updateFeed(): void {
     this.videoService.videoFeed(this.offset(), FEED_LIMIT).subscribe({
       next: (feed: VideoFeed[]) => {
-        console.log('updated feed');
         this.currentFeed.set(feed);
       },
       error: (error: any) => {
@@ -51,7 +52,6 @@ export class VideoFeedComponent implements OnInit {
   }
 
   public previousVideo(): void {
-    console.log('Clicked Previous');
     if (this.isPreviousDisabled()) {
       return;
     }
@@ -67,7 +67,6 @@ export class VideoFeedComponent implements OnInit {
   }
 
   public nextVideo(): void {
-    console.log('Clicked Next');
     if (this.isNextDisabled()) {
       return;
     }
