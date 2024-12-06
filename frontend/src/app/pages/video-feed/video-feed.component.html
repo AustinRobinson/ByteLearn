@@ -7,7 +7,7 @@
     <button type="button" (click)="nextVideo()" [disabled]="isNextDisabled()"
       class="rounded-lg bg-indigo-600 py-4 font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
   </div>
-  @if (currentFeed().length > 0) {
+  @if (videoFeed().length > 0 && videoId() && videoS3Key()) {
   <app-video-player [videoId]="videoId()" [videoS3Key]="videoS3Key()" />
   }
 </main>
