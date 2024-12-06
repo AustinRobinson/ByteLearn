@@ -2,23 +2,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { map, Observable, of } from 'rxjs';
+import { ApiDataResponse } from '../data/data.service';
 
-interface ApiDataResponse<T> {
-  message: string;
-  data: T
-}
-
+// Interface for upload video data
 export interface uploadFormData {
   video: File;
   title: string;
   description: string;
 }
 
+// Interface for task tags
 export interface Tag {
   id: string,
   tag: string,
 }
 
+// Interface for a video's details
 export interface VideoDetails {
   id: string;
   s3_key: string;
@@ -35,6 +34,7 @@ export interface VideoDetails {
   like_count: number;
 }
 
+// Interface for each entry in the video feed
 export interface VideoFeed {
   id: string;
   s3_key: string;
@@ -66,6 +66,7 @@ export class VideoService {
     });
   }
 
+  // Like/Dislike the video with the given ID
   public toggleVideoLike(videoId: string): Observable<any> {
     const data = {
       video_id: videoId,
@@ -75,6 +76,7 @@ export class VideoService {
     return of(data);
   }
 
+  // Get the video with the given ID
   public getVideo(videoId: string): Observable<VideoDetails> {
     const url = `${environment.apiBaseUrl}/videos/${videoId}`
 
@@ -83,6 +85,7 @@ export class VideoService {
     );
   }
 
+  // Get a temporary link to the video from the back end
   public getVideoUrl(s3Key: string): Observable<string> {
     const url = `${environment.apiBaseUrl}/videos/url`;
 
@@ -92,6 +95,7 @@ export class VideoService {
     // return of('./smile.mp4');
   }
 
+  // Get the page of the video feed at the given offset with the given limit
   public videoFeed(offset: number, limit: number): Observable<VideoFeed[]> {
     // return this.http.get<VideoDetails>(`${environment.apiBaseUrl}/videos/feed?offset=${offset}&limit=${limit}`);
     const feed: VideoFeed[] = [];

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
+// Interface for a single comment
 export interface Comment {
   id: string;
   username: string;
@@ -11,11 +13,13 @@ export interface Comment {
   does_user_own: boolean;
 }
 
+// Interface for a list of comments, including comment count
 export interface Comments {
   comment_count: number;
   comments: Comment[];
 }
 
+// Service for managing video comments
 @Injectable({
   providedIn: 'root'
 })
@@ -23,15 +27,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  public toggleCommentLike(commentId: string): Observable<any> {
-    const data = {
-      comment_id: commentId,
-    };
-
-    // return this.http.post(`${environment.apiBaseUrl}/comments/likes/toggle`, data);
-    return of(data);
-  }
-
+  // get the given video's comments
   public getVideoComments(videoId: string): Observable<Comments> {
     // return this.http.get<Comment[]>(`/comments/video/${videoId}`);
     const comments: Comment[] = [
@@ -115,5 +111,25 @@ export class CommentService {
     };
 
     return of(commentsResult);
+  }
+
+  // like/dislike a comment
+  public toggleCommentLike(commentId: string): Observable<any> {
+    const data = {
+      comment_id: commentId,
+    };
+
+    // return this.http.post(`${environment.apiBaseUrl}/comments/likes/toggle`, data);
+    return of(data);
+  }
+
+  public createComment(videoId: string): Observable<any> {
+    const data = {
+      video_id: videoId,
+    };
+    const url = `${environment.apiBaseUrl}/comments/likes/toggle`;
+
+    // return this.http.post(url, data);
+    return of(data);
   }
 }
