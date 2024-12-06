@@ -1,7 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
+
+interface ApiDataResponse<T> {
+  message: string;
+  data: T
+}
 
 export interface uploadFormData {
   video: File;
@@ -16,6 +21,7 @@ export interface Tag {
 
 export interface VideoDetails {
   id: string;
+  s3_key: string;
   title: string;
   description: string;
   created_at: string;
@@ -26,13 +32,12 @@ export interface VideoDetails {
   tags: Tag[];
   has_watched: boolean;
   is_liked: boolean;
-  comment_count: number;
   like_count: number;
-  matches_interests: boolean;
 }
 
 export interface VideoFeed {
   id: string;
+  s3_key: string;
 }
 
 @Injectable({
@@ -71,38 +76,20 @@ export class VideoService {
   }
 
   public getVideo(videoId: string): Observable<VideoDetails> {
-    // return this.http.get<VideoDetails>(`${environment.apiBaseUrl}/videos/${videoId}`);
-    const video: VideoDetails = {
-      id: "12345678-abcd-1234-abcd-1234567890ab",
-      title: "Learn Python in 60 Seconds",
-      description: "Quick Python tutorial for beginners",
-      created_at: "2024-12-03T21:09:47.103Z",
-      user: {
-        id: "12345678-abcd-1234-abcd-1234567890ab",
-        username: "techteacher"
-      },
-      tags: [
-        {
-          id: "12345678-abcd-1234-abcd-1234567890ab",
-          tag: "python"
-        },
-        {
-          id: "12345678-abcd-1234-abcd-1234567890ab",
-          tag: "technology"
-        }
-      ],
-      is_liked: false,
-      has_watched: false,
-      comment_count: 2,
-      like_count: 56,
-      matches_interests: true,
-    };
+    const url = `${environment.apiBaseUrl}/videos/${videoId}`
 
-    return of(video);
+    return this.http.get<ApiDataResponse<VideoDetails>>(url).pipe(
+      map(response => response.data)
+    );
   }
 
-  public getVideoUrl(videoId: string): Observable<string> {
-    return of('./smile.mp4');
+  public getVideoUrl(s3Key: string): Observable<string> {
+    const url = `${environment.apiBaseUrl}/videos/url`;
+
+    return this.http.post<ApiDataResponse<string>>(url, { s3_key: s3Key }).pipe(
+      map(response => response.data)
+    );
+    // return of('./smile.mp4');
   }
 
   public videoFeed(offset: number, limit: number): Observable<VideoFeed[]> {
@@ -112,6 +99,7 @@ export class VideoService {
     for (let i = offset * limit; i < (offset + 1) * limit; ++i) {
       feed.push({
         id: `${i}`,
+        s3_key: `${i}`,
       });
     }
 

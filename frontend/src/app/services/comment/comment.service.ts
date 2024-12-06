@@ -3,12 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 export interface Comment {
-  id: string,
-  username: string,
-  comment: string,
-  likes: number
-  is_liked: boolean,
-  does_user_own: boolean,
+  id: string;
+  username: string;
+  comment: string;
+  likes: number;
+  is_liked: boolean;
+  does_user_own: boolean;
+}
+
+export interface Comments {
+  comment_count: number;
+  comments: Comment[];
 }
 
 @Injectable({
@@ -27,7 +32,7 @@ export class CommentService {
     return of(data);
   }
 
-  public getVideoComments(videoId: string): Observable<Comment[]> {
+  public getVideoComments(videoId: string): Observable<Comments> {
     // return this.http.get<Comment[]>(`/comments/video/${videoId}`);
     const comments: Comment[] = [
       {
@@ -104,6 +109,11 @@ export class CommentService {
       },
     ];
 
-    return of(comments);
+    const commentsResult: Comments = {
+      comment_count: 9,
+      comments: comments,
+    };
+
+    return of(commentsResult);
   }
 }
