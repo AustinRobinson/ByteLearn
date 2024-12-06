@@ -32,13 +32,14 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     // Video routes
     Route::controller(VideoController::class)->group(function() {
         Route::get('/videos/all', 'all');
+        Route::get('/videos/{id}', 'withId');
         Route::post('/videos/upload', 'upload');
         Route::get('/videos/search/all', 'searchAll');
         Route::get('/videos/search/title', 'searchTitle');
         Route::get('/videos/search/description', 'searchDescription');
         Route::get('/videos/search/tag', 'searchTag');
         Route::get('/videos/search/user', 'searchUser');
-        Route::get('/videos/url', 'tempLink');
+        Route::post('/videos/url', 'tempLink');
     });
 
     // new tag routes

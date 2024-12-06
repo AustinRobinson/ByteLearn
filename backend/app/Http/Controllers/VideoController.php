@@ -22,6 +22,40 @@ class VideoController extends Controller
         ], 200);
     }
 
+    public function withId(Request $request, string $id): JsonResponse
+    {
+        $video = Video::with(['user:id,username', 'tags:id,tag'])
+            ->withCount(['usersLiked', ])
+            ->where('id', $id)
+            ->first();
+
+        $user = $request->user();
+
+        return response()->json([
+            'message' => 'Video retrieved',
+            'data' => [
+                'id' => $video->id,
+                's3_key' => $video->s3_key,
+                'title' => $video->title,
+                'description' => $video->description,
+                'created_at' => $video->created_at,
+                'user' => [
+                    'id' => $video->user->id,
+                    'username' => $video->user->username,
+                ],
+                'tags' => $video->tags->map(function ($tag) {
+                    return [
+                        'id' => $tag->id,
+                        'name' => $tag->tag,
+                    ];
+                }),
+                'has_watched' => $video->usersWatched()->where('user_id', $user->id)->exists(),
+                'is_liked' => $video->usersLiked()->where('user_id', $user->id)->exists(),
+                'like_count' => $video->likes
+            ],
+        ], 200);
+    }
+
     /**
      * Get the temporary video link
      */
@@ -37,7 +71,7 @@ class VideoController extends Controller
             'data' => $url
         ], 200);
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -89,7 +123,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['title']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on titles for '.$request->search,
             'data' => $search
@@ -104,7 +138,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['description']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on descriptions for '.$request->search,
             'data' => $search
@@ -118,7 +152,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['tags']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on tags for '.$request->search,
             'data' => $search
@@ -132,7 +166,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['user']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on users for '.$request->search,
             'data' => $search
