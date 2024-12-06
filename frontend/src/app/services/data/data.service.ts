@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 import { GetCurrentUserResponse } from '../../models/user.model';
 import { SearchVideosResult } from '../../models/video.model';
 
-interface ApiDataResponse<T> {
+export interface ApiDataResponse<T> {
   message: string;
   data: T
 }
