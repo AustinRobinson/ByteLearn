@@ -38,6 +38,7 @@ Route::middleware([AuthenticateToken::class])->group(function () {
         Route::get('/videos/search/description', 'searchDescription');
         Route::get('/videos/search/tag', 'searchTag');
         Route::get('/videos/search/user', 'searchUser');
+        Route::get('/videos/url', 'tempLink');
     });
 
     // new tag routes
