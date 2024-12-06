@@ -1,11 +1,11 @@
-<section class="sm:flex sm:justify-around">
-  <div class="sm:sticky sm:top-10 h-[80vh] w-11/12 mx-auto sm:w-2/5 bg-black">
+<section class="sm:flex sm:justify-around sm:gap-x-10">
+  <div class="sm:sticky sm:top-10 h-[80vh] w-11/12 mx-auto sm:w-1/2 bg-black">
     @if (videoUrl$ | async; as videoUrl) {
     <video [src]="videoUrl" controls autoplay loop class="w-full h-full max-h"></video>
     }
   </div>
   @if (videoDetails$ | async; as videoDetails) {
-  <div class="space-y-4 w-11/12 mx-auto sm:w-2/5 mt-4 sm:mt-0">
+  <div class="space-y-4 w-11/12 mx-auto sm:w-1/2 mt-4 sm:mt-0">
     <div class="border rounded-lg">
       <!-- Video Details Accordion Header -->
       <button
@@ -24,12 +24,17 @@
         <h3 class="text-xl font-semibold">Title</h3>
         <p>{{ videoDetails.title }}</p>
         <h3 class="text-xl font-semibold">Description</h3>
+        @if (videoDetails.description) {
         <p>{{ videoDetails.description }}</p>
+        } @else {
+        <p class="italic">No description provided.</p>
+        }
         <h3 class="text-xl font-semibold">Creator</h3>
         <p>{{ videoDetails.user.username }}</p>
         <h3 class="text-xl font-semibold">Date Uploaded</h3>
         <p>{{ videoDetails.created_at | date: 'medium' }}</p>
         <h3 class="text-xl font-semibold">Tags</h3>
+        @if (videoDetails.tags.length > 0) {
         <div class="flex flex-wrap gap-x-2">
           @for (tag of videoDetails.tags; track tag.id) {
           <div class="rounded-md bg-indigo-600 p-2 text-white">
@@ -37,6 +42,9 @@
           </div>
           }
         </div>
+        } @else {
+        <p class="italic">No tags provided.</p>
+        }
         <h3 class="text-xl font-semibold">Likes</h3>
         <div class="flex justify-between">
           <p>{{ videoDetails.like_count }}</p>
@@ -63,7 +71,7 @@
       <button
         class="w-full flex justify-between items-center rounded-lg p-4 text-left text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none"
         (click)="toggleComments()">
-        <span class="font-semibold">{{ videoDetails.comment_count }} Comments</span>
+        <span class="font-semibold">{{ videoComments.comment_count }} Comments</span>
         <svg [class.rotate-180]="isCommentsOpen()" class="w-5 h-5 transform transition-transform"
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -83,7 +91,7 @@
               class="rounded-md bg-indigo-600 px-3 py-1 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Comment</button>
           </div>
         </form>
-        @for (comment of videoComments; track comment.id) {
+        @for (comment of videoComments.comments; track comment.id) {
         <div class="flex justify-between items-center">
           <div>
             <p class="text-sm text-gray-700"><strong>{{ comment.username }}</strong></p>

@@ -1,9 +1,9 @@
-import { Component, computed, input, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { VideoDetails, VideoService } from '../../services/video/video.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Comment, CommentService } from '../../services/comment/comment.service';
+import { Comments, CommentService } from '../../services/comment/comment.service';
 
 @Component({
   selector: 'app-video-player',
@@ -14,10 +14,11 @@ import { Comment, CommentService } from '../../services/comment/comment.service'
 })
 export class VideoPlayerComponent implements OnInit {
   public videoId = input('');
+  public videoS3Key = input('');
 
   public videoUrl$!: Observable<string>;
   public videoDetails$!: Observable<VideoDetails>;
-  public videoComments$!: Observable<Comment[]>;
+  public videoComments$!: Observable<Comments>;
 
   public isDetailsOpen = signal(false);
   public isCommentsOpen = signal(false);
@@ -29,12 +30,13 @@ export class VideoPlayerComponent implements OnInit {
   public constructor(
     private videoService: VideoService,
     private commentService: CommentService,
-  ) {}
+  ) {
+  }
 
   public ngOnInit(): void {
-    this.videoUrl$ = this.videoService.getVideoUrl(this.videoId());
     this.videoDetails$ = this.videoService.getVideo(this.videoId());
-    this.videoComments$ = this.commentService.getVideoComments(this.videoId());
+    this.videoUrl$ = this.videoService.getVideoUrl(this.videoS3Key());
+    // this.videoComments$ = this.commentService.getVideoComments(this.videoId());
   }
 
   public toggleDetails(): void {
