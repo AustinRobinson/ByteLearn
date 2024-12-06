@@ -22,6 +22,9 @@ class VideoController extends Controller
         ], 200);
     }
 
+    /**
+     * Get the details associated with a video with the given ID.
+     */
     public function withId(Request $request, string $id): JsonResponse
     {
         $video = Video::with(['user:id,username', 'tags:id,tag'])

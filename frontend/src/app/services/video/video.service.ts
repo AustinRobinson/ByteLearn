@@ -66,7 +66,7 @@ export class VideoService {
     });
   }
 
-  // Like/Dislike the video with the given ID
+  // Like/dislike the video with the given ID
   public toggleVideoLike(videoId: string): Observable<any> {
     const data = {
       video_id: videoId,
