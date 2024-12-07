@@ -13,9 +13,6 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         // creating initial tags, users, and videos
@@ -36,6 +33,13 @@ class DatabaseSeeder extends Seeder
             )
             ->unverified()
             ->create();
+
+        // Attach tags to all videos
+        foreach(Video::all() as $video) {
+            $video->tags()->attach(
+                $tags->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        }
 
         // create comments for each video
         foreach(Video::all() as $vid) {
@@ -60,6 +64,18 @@ class DatabaseSeeder extends Seeder
         $comments->get(1)->parentComment()->associate($comments->get(0));
         $comments->get(1)->save();
         $comments->get(1)->replies()->save($comments->get(2));
+
+
+       foreach(Video::all() as $video) {
+           $likers = User::where('id', '!=', $video->user_id)
+               ->inRandomOrder()
+               ->take(rand(0, 3))
+               ->get();
+           
+           if ($likers->isNotEmpty()) {
+               $video->likedBy()->attach($likers->pluck('id'));
+           }
+       }
 
         // create a new follower who follows the first user
         $follower = User::factory()->unverified()->create();
