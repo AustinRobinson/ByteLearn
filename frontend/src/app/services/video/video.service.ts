@@ -98,7 +98,6 @@ export class VideoService {
     return this.http.post<ApiDataResponse<string>>(url, { s3_key: s3Key }).pipe(
       map(response => response.data)
     );
-    // return of('./smile.mp4');
   }
 
   // Get the page of the video feed at the given offset with the given limit
