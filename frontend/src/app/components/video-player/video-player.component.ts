@@ -5,12 +5,13 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Comments, CommentService } from '../../services/comment/comment.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // Component to play a video and display its details, including comments
 @Component({
   selector: 'app-video-player',
   standalone: true,
-  imports: [ReactiveFormsModule, AsyncPipe, DatePipe],
+  imports: [ReactiveFormsModule, AsyncPipe, DatePipe, ClipboardModule],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css'
 })
@@ -19,6 +20,9 @@ export class VideoPlayerComponent implements OnInit {
   public videoId = input('');
   // video S3 key input from parent component
   public videoS3Key = input('');
+
+  // Shareable link to the video
+  public videoLink = '';
 
   // video URL from back-end request
   public videoUrl$!: Observable<string>;
@@ -47,6 +51,7 @@ export class VideoPlayerComponent implements OnInit {
     // whenever video ID changes, update the video's details and comments
     effect(() => {
       if (this.videoId()) {
+        this.videoLink = `${window.location.origin}/video/${this.videoId()}`;
         this.videoDetails$ = this.videoService.getVideo(this.videoId());
         this.videoComments$ = this.commentService.getVideoComments(this.videoId());
       }
