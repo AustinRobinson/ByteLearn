@@ -1,0 +1,13 @@
+<app-header />
+<main class="w-4/5 mx-auto mt-8 mb-16">
+  <div class="grid grid-cols-3 gap-x-4 my-4">
+    <button type="button" (click)="previousVideo()" [disabled]="isPreviousDisabled()"
+      class="rounded-lg bg-indigo-600 py-4 font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Previous</button>
+    <h1 class="text-4xl font-bold mx-auto text-center">Video Feed</h1>
+    <button type="button" (click)="nextVideo()" [disabled]="isNextDisabled()"
+      class="rounded-lg bg-indigo-600 py-4 font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
+  </div>
+  @if (videoFeed().length > 0 && videoId() && videoS3Key()) {
+  <app-video-player [videoId]="videoId()" [videoS3Key]="videoS3Key()" />
+  }
+</main>
