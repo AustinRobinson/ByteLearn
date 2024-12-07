@@ -53,4 +53,5 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     Route::delete('/videos/like/{video}', [VideoLikeController::class, 'destroy']);
     Route::get('/videos/comments/{video}', [VideoCommentController::class, 'index']);
     Route::post('/videos/comments/{video}', [VideoCommentController::class, 'store']);
+    Route::post('/comments/{comment}/like', [VideoCommentController::class, 'toggleLike']);
 });

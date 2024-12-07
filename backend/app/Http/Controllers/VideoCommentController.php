@@ -20,10 +20,11 @@ class VideoCommentController extends Controller
             ->get();
 
         return response()->json([
-            'data' => $comments->map(function ($comment) {
+            'data' => $comments->map(function ($comment) use ($video) {
                 return [
                     'id' => $comment->id,
                     'text' => $comment->comment,
+                    'is_user_creator' => $comment->user_id === request()->user()->id,
                     'user' => [
                         'id' => $comment->user->id,
                         'username' => $comment->user->username
@@ -32,6 +33,7 @@ class VideoCommentController extends Controller
                         return [
                             'id' => $reply->id,
                             'text' => $reply->comment,
+                            'is_user_creator' => $reply->user_id === request()->user()->id,
                             'user' => [
                                 'id' => $reply->user->id,
                                 'username' => $reply->user->username
@@ -39,7 +41,10 @@ class VideoCommentController extends Controller
                         ];
                     })
                 ];
-            })
+            }),
+            'meta' => [
+                'total_comments' => $video->comments()->count()
+            ]
         ]);
     }
 
@@ -73,5 +78,24 @@ class VideoCommentController extends Controller
                 ]
             ]
         ], 201);
+    }
+
+    /**
+     * Toggle like status on a comment
+     */
+    public function toggleLike(Request $request, Comment $comment): JsonResponse
+    {
+        $user = $request->user();
+        
+        if ($comment->usersLiked()->where('user_id', $user->id)->exists()) {
+            $comment->usersLiked()->detach($user->id);
+            $comment->decrement('likes');
+            $message = 'Comment unliked successfully';
+        } else {
+            $comment->usersLiked()->attach($user->id);
+            $comment->increment('likes');
+            $message = 'Comment liked successfully';
+        }
+        return response()->json(['message' => $message]);
     }
 }
