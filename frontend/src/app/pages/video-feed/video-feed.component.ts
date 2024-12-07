@@ -70,8 +70,6 @@ export class VideoFeedComponent implements OnInit {
 
   // update the current video feed page
   private addNextFeed(): void {
-    console.log('called');
-
     this.videoService.videoFeed(this.offset(), FEED_LIMIT).subscribe({
       next: (feed: VideoFeed[]) => {
         this.videoFeed.update(currentFeed => {
@@ -94,8 +92,6 @@ export class VideoFeedComponent implements OnInit {
     }
 
     this.videoIndex.update(value => value - 1);
-    console.log('index prev: ', this.videoIndex());
-    console.log(this.videoFeed());
   }
 
   // Go to next video in feed
@@ -109,7 +105,5 @@ export class VideoFeedComponent implements OnInit {
       this.offset.update(value => value + 1);
       this.addNextFeed();
     }
-    console.log('index next: ', this.videoIndex());
-    console.log(this.videoFeed());
   }
 }
