@@ -4,6 +4,7 @@ import { VideoDetails, VideoService } from '../../services/video/video.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Comments, CommentService } from '../../services/comment/comment.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 // Component to play a video and display its details, including comments
 @Component({
@@ -13,7 +14,7 @@ import { Comments, CommentService } from '../../services/comment/comment.service
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css'
 })
-export class VideoPlayerComponent {
+export class VideoPlayerComponent implements OnInit {
   // video ID input from parent component
   public videoId = input('');
   // video S3 key input from parent component
@@ -26,9 +27,12 @@ export class VideoPlayerComponent {
   // video comments from back-end request
   public videoComments$!: Observable<Comments>;
 
+  // Whether the screen is large width or not
+  public isLargeScreen: boolean = true;
+
   // whether the video details or comments accordions are opened or not
-  public isDetailsOpen = signal(false);
-  public isCommentsOpen = signal(false);
+  public isDetailsOpen = signal(this.isLargeScreen);
+  public isCommentsOpen = signal(this.isLargeScreen);
 
   // Form for creating a comment
   public commentForm = new FormGroup({
@@ -36,6 +40,7 @@ export class VideoPlayerComponent {
   });
 
   public constructor(
+    private breakPointObserver: BreakpointObserver,
     private videoService: VideoService,
     private commentService: CommentService,
   ) {
@@ -53,6 +58,14 @@ export class VideoPlayerComponent {
         this.videoUrl$ = this.videoService.getVideoUrl(this.videoS3Key());
       }
     });
+  }
+
+  // Open the video details and comments by default if on desktop. Otherwise,
+  // don't open by default if on a screen with a small width
+  public ngOnInit(): void {
+    this.isLargeScreen = this.breakPointObserver.isMatched('(min-width: 640px)');
+    this.isDetailsOpen.set(this.isLargeScreen);
+    this.isCommentsOpen.set(this.isLargeScreen);
   }
 
   // Get the comment form control from the form
