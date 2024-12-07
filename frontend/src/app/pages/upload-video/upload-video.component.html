@@ -28,7 +28,7 @@
   </form>
   @if (videoUrl) {
   <h2 class="text-xl font-bold my-8">Preview Video</h2>
-  <video [src]="videoUrl" height="600" controls class="mx-auto"></video>
+  <video [src]="videoUrl" controls class="mx-auto max-h-[80vh]"></video>
   <h2 class="text-xl font-bold mt-16">Video Details</h2>
   <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">

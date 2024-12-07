@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { uploadFormData, VideoService } from '../../services/video/video.service';
+import { uploadFormData, UploadVideoResponse, VideoService } from '../../services/video/video.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-video',
@@ -24,7 +25,10 @@ export class UploadVideoComponent {
   });
 
   // construct the component with the injected video service
-  public constructor(private videoService: VideoService) { }
+  public constructor(
+    private router: Router,
+    private videoService: VideoService
+  ) {}
 
   // get the form group's title control
   public get title() {
@@ -107,8 +111,8 @@ export class UploadVideoComponent {
     };
 
     this.videoService.uploadVideo(uploadData).subscribe({
-      next: (value) => {
-        console.log(value);
+      next: (video: UploadVideoResponse) => {
+        this.router.navigateByUrl(`/video/${video.id}`);
       },
       error: (error: any) => {
         console.log(error);

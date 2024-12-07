@@ -11,6 +11,10 @@ export interface uploadFormData {
   description: string;
 }
 
+export interface UploadVideoResponse {
+  id: string;
+}
+
 // Interface for task tags
 export interface Tag {
   id: string,
@@ -51,7 +55,7 @@ export class VideoService {
   // Make a request to the back-end API to upload the video. Puts the video
   // data (video file, title, description) in a FormData object and sends the
   // data as multipart form data.
-  public uploadVideo(data: uploadFormData) {
+  public uploadVideo(data: uploadFormData): Observable<UploadVideoResponse> {
     const formData = new FormData();
     formData.append('video', data.video, data.video.name);
     formData.append('title', data.title);
@@ -61,9 +65,11 @@ export class VideoService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json')
 
-    return this.http.post(`${environment.apiBaseUrl}/videos/upload`, formData, {
+    return this.http.post<ApiDataResponse<UploadVideoResponse>>(`${environment.apiBaseUrl}/videos/upload`, formData, {
       headers: headers,
-    });
+    }).pipe(
+      map(response => response.data)
+    );
   }
 
   // Like/dislike the video with the given ID
