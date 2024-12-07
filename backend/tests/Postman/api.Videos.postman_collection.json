@@ -62,13 +62,24 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"s3_key\": \"test_s3_2\",\r\n    \"title\": \"test_video2\",\r\n    \"description\": \"test_description\" \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "video",
+							"type": "file",
+							"src": "/C:/Users/Alekz/Downloads/Netflix_Tech_Stack.mp4"
+						},
+						{
+							"key": "title",
+							"value": "test_video2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "test_description",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "http://localhost/api/videos/upload",
@@ -110,7 +121,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"test\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -118,7 +129,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/all",
+					"raw": "http://localhost/api/videos/search/all?search=test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -128,6 +139,12 @@
 						"videos",
 						"search",
 						"all"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "test"
+						}
 					]
 				}
 			},
@@ -158,7 +175,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"et\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -166,7 +183,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/all",
+					"raw": "http://localhost/api/videos/search/all?search=et",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -176,6 +193,12 @@
 						"videos",
 						"search",
 						"all"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "et"
+						}
 					]
 				}
 			},
@@ -206,7 +229,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"quo\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -214,7 +237,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/title",
+					"raw": "http://localhost/api/videos/search/title?search=quo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -224,6 +247,12 @@
 						"videos",
 						"search",
 						"title"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "quo"
+						}
 					]
 				}
 			},
@@ -254,7 +283,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"et\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -262,7 +291,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/title",
+					"raw": "http://localhost/api/videos/search/title?search=et",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -272,6 +301,12 @@
 						"videos",
 						"search",
 						"title"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "et"
+						}
 					]
 				}
 			},
@@ -302,7 +337,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"temporibus\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -310,7 +345,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/description",
+					"raw": "http://localhost/api/videos/search/description?search=temporibus",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -320,6 +355,12 @@
 						"videos",
 						"search",
 						"description"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "temporibus"
+						}
 					]
 				}
 			},
@@ -350,7 +391,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -358,7 +399,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/description",
+					"raw": "http://localhost/api/videos/search/description?search=qui",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -368,6 +409,12 @@
 						"videos",
 						"search",
 						"description"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "qui"
+						}
 					]
 				}
 			},
@@ -398,7 +445,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"temporibus\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -406,7 +453,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/tag",
+					"raw": "http://localhost/api/videos/search/tag?search=temporibus",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -416,6 +463,12 @@
 						"videos",
 						"search",
 						"tag"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "temporibus"
+						}
 					]
 				}
 			},
@@ -446,7 +499,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -454,7 +507,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/tag",
+					"raw": "http://localhost/api/videos/search/tag?search=qui",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -464,6 +517,12 @@
 						"videos",
 						"search",
 						"tag"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "qui"
+						}
 					]
 				}
 			},
@@ -494,7 +553,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"j\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -502,7 +561,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/user",
+					"raw": "http://localhost/api/videos/search/user?search=j",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -512,6 +571,12 @@
 						"videos",
 						"search",
 						"user"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "j"
+						}
 					]
 				}
 			},
@@ -542,7 +607,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"search\": \"qui\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -550,7 +615,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/search/user",
+					"raw": "http://localhost/api/videos/search/user?search=qui",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -560,6 +625,65 @@
 						"videos",
 						"search",
 						"user"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "qui"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Temp URL",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let token = pm.globals.get(\"access_token\")\r",
+							"pm.request.headers.add({\"key\":\"Authorization\", \"value\": `Bearer ${token}`})\r",
+							"console.log(`access_token: ${token}`)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/videos/url?s3_key=9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"videos",
+						"url"
+					],
+					"query": [
+						{
+							"key": "s3_key",
+							"value": "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
+						}
 					]
 				}
 			},

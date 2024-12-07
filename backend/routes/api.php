@@ -34,18 +34,21 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     // Video routes
     Route::controller(VideoController::class)->group(function() {
         Route::get('/videos/all', 'all');
+        Route::get('/videos/{id}', 'withId');
         Route::post('/videos/upload', 'upload');
         Route::get('/videos/search/all', 'searchAll');
         Route::get('/videos/search/title', 'searchTitle');
         Route::get('/videos/search/description', 'searchDescription');
         Route::get('/videos/search/tag', 'searchTag');
         Route::get('/videos/search/user', 'searchUser');
+        Route::post('/videos/url', 'tempLink');
     });
 
     // Tag routes
     Route::apiResource('tags', TagController::class)->only(['index', 'store', 'destroy']);
     Route::post('users/{user}/tags', [TagController::class, 'attachToUser']);
     Route::delete('users/{user}/tags', [TagController::class, 'detachFromUser']);
+
 
     // Video feed, likes and comments
     Route::get('/videos/feed', VideoFeedController::class);
@@ -55,3 +58,4 @@ Route::middleware([AuthenticateToken::class])->group(function () {
     Route::post('/videos/comments/{video}', [VideoCommentController::class, 'store']);
     Route::post('/comments/{comment}/like', [VideoCommentController::class, 'toggleLike']);
 });
+

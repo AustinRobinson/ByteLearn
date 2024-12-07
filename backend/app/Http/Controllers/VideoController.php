@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -21,21 +23,78 @@ class VideoController extends Controller
     }
 
     /**
+     * Get the details associated with a video with the given ID.
+     */
+    public function withId(Request $request, string $id): JsonResponse
+    {
+        $video = Video::with(['user:id,username', 'tags:id,tag'])
+            ->withCount(['usersLiked', ])
+            ->where('id', $id)
+            ->first();
+
+        $user = $request->user();
+
+        return response()->json([
+            'message' => 'Video retrieved',
+            'data' => [
+                'id' => $video->id,
+                's3_key' => $video->s3_key,
+                'title' => $video->title,
+                'description' => $video->description,
+                'created_at' => $video->created_at,
+                'user' => [
+                    'id' => $video->user->id,
+                    'username' => $video->user->username,
+                ],
+                'tags' => $video->tags->map(function ($tag) {
+                    return [
+                        'id' => $tag->id,
+                        'name' => $tag->tag,
+                    ];
+                }),
+                'has_watched' => $video->usersWatched()->where('user_id', $user->id)->exists(),
+                'is_liked' => $video->usersLiked()->where('user_id', $user->id)->exists(),
+                'like_count' => $video->likes
+            ],
+        ], 200);
+    }
+
+    /**
+     * Get the temporary video link
+     */
+    public function tempLink(Request $request): JsonResponse {
+        $validated = $request->validate([
+            's3_key' => ['required', 'string', 'max:255']
+        ]);
+
+        $url = Storage::disk('s3-videos')->temporaryUrl($validated['s3_key'], now()->addMinutes(5));
+
+        return response()->json([
+            'message' => 'Temporary video link for '.$validated['s3_key'],
+            'data' => $url
+        ], 200);
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      */
     public function upload(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            's3_key' => ['required', 'string', 'unique:videos', 'max:255'],
+            'video' => ['required', 'file', 'mimetypes:video/mp4'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string']
         ]);
 
         $user = $request->user();
+        $video_file = $request->file('video');
+
+        $path = Storage::disk('s3-videos')->putFile($user->id, $video_file);
 
         $video = Video::create([
             'user_id' => $user->id,
-            's3_key' => $validated['s3_key'],
+            's3_key' => $path,
             'title' => $validated['title'],
             'description' => $validated['description']
         ])->user()->associate($user);
@@ -67,7 +126,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['title']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on titles for '.$request->search,
             'data' => $search
@@ -82,7 +141,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['description']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on descriptions for '.$request->search,
             'data' => $search
@@ -96,7 +155,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['tags']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on tags for '.$request->search,
             'data' => $search
@@ -110,7 +169,7 @@ class VideoController extends Controller
         $search = Video::search($request->search)->options([
             'attributesToSearchOn' => ['user']
         ])->get();
-        
+
         return response()->json([
             'message' => 'Search results on users for '.$request->search,
             'data' => $search
