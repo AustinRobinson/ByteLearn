@@ -26,12 +26,12 @@ class VideoFactory extends Factory
     }
 
     private $test_keys = [
-        's3://bytelearn-prod/videos/testing/Longest Consecutive Sequence - Leetcode 128 [ahysrRu0bHw].mp4',
-        's3://bytelearn-prod/videos/testing/Permutations Leetcode 46 [aP3YATiM09g].mp4',
-        's3://bytelearn-prod/videos/testing/Satisfying ascii animation with C - The doughnut shaped code that generates a spinning.mp4',
-        's3://bytelearn-prod/videos/testing/Smiling_Seal_mQUKMX7aShI.mp4',
-        's3://bytelearn-prod/videos/testing/the_BEST_IDE_for_programming_pt.2_a97QBk8QRtg.mp4',
-        's3://bytelearn-prod/videos/testing/this_is_when_you_should_appreciate_abstraction_in_codingcoding_programming_javascript_python_OZ5TDCdjI78.mp4',
+        '/testing/Longest Consecutive Sequence - Leetcode 128 [ahysrRu0bHw].mp4',
+        '/testing/Permutations Leetcode 46 [aP3YATiM09g].mp4',
+        '/testing/Satisfying ascii animation with C - The doughnut shaped code that generates a spinning.mp4',
+        '/testing/Smiling_Seal_mQUKMX7aShI.mp4',
+        '/testing/the_BEST_IDE_for_programming_pt.2_a97QBk8QRtg.mp4',
+        '/testing/this_is_when_you_should_appreciate_abstraction_in_codingcoding_programming_javascript_python_OZ5TDCdjI78.mp4',
     ];
 
     private $curr_key = 0;
