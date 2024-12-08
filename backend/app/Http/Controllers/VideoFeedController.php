@@ -11,7 +11,7 @@ class VideoFeedController extends Controller
     /**
      * Get personalized video feed
      */
-    public function __invoke(Request $request): JsonResponse
+    public function get_feed(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'offset' => ['sometimes', 'integer', 'min:0'],
