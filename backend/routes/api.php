@@ -41,14 +41,14 @@ Route::middleware([AuthenticateToken::class])->group(function () {
 
     // Video like routes
     Route::controller(VideoLikeController::class)->group(function () {
-        Route::post('/videos/like/{video}', 'store');
-        Route::delete('/videos/like/{video}', 'destroy');
+        Route::post('/video-like/{video}', 'store');
+        Route::delete('/video-like/{video}', 'destroy');
     });
 
     // Video comment routes
     Route::controller(VideoCommentController::class)->group(function () {
-        Route::get('/videos/comments/{video}', 'index');
-        Route::post('/videos/comments/{video}', 'store');
+        Route::get('/video-comments/{video}', 'index');
+        Route::post('/video-comments/{video}', 'store');
         Route::post('/comments/{comment}/like', 'toggleLike');
     });
 
