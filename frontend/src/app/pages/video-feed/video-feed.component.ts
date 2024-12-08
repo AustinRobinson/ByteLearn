@@ -3,7 +3,7 @@ import { FeedVideo, VideoFeedResponse, VideoService } from '../../services/video
 import { HeaderComponent } from "../../components/header/header.component";
 import { VideoPlayerComponent } from "../../components/video-player/video-player.component";
 
-export const FEED_LIMIT: number = 20;
+export const FEED_LIMIT: number = 100;
 
 // Page for viewing the user's video feed.
 @Component({

@@ -25,6 +25,9 @@
         <p class="text-xs/5 text-gray-600">mp4 up to 500MB</p>
       </div>
     </div>
+    @if (fileErrorMessage) {
+    <p class="text-center text-red-500 mt-2">{{ fileErrorMessage }}</p>
+    }
   </form>
   @if (videoUrl) {
   <h2 class="text-xl font-bold my-8">Preview Video</h2>
@@ -48,6 +51,9 @@
         </div>
       </div>
     </div>
+    @if (title?.touched && description?.touched && uploadForm.invalid) {
+    <p class="text-center text-red-500 mt-2">Both Title and Description are required</p>
+    }
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
       <button type="submit"
