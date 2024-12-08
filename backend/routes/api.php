@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\VideoCommentController;
-use App\Http\Controllers\VideoLikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -10,6 +8,8 @@ use App\Models\Video;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\VideoLikeController;
+use App\Http\Controllers\VideoCommentController;
 use App\Http\Controllers\VideoFeedController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticateToken;

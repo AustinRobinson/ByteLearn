@@ -6,17 +6,26 @@ import { environment } from '../../../environments/environment';
 // Interface for a single comment
 export interface Comment {
   id: string;
-  username: string;
-  comment: string;
+  user: {
+    id: string,
+    username: string,
+  };
+  text: string;
   likes: number;
   is_liked: boolean;
-  does_user_own: boolean;
+  is_user_creator: boolean;
+  created_at: string;
 }
 
-// Interface for a list of comments, including comment count
+// Interface for meta information about the comments list
+export interface CommentMeta {
+  total_comments: boolean;
+};
+
+// Interface for a list of comments, including meta information
 export interface Comments {
-  comment_count: number;
-  comments: Comment[];
+  data: Comment[];
+  meta: CommentMeta;
 }
 
 // Service for managing video comments
@@ -29,107 +38,21 @@ export class CommentService {
 
   // get the given video's comments
   public getVideoComments(videoId: string): Observable<Comments> {
-    // return this.http.get<Comment[]>(`/comments/video/${videoId}`);
-    const comments: Comment[] = [
-      {
-        id: '1',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '2',
-        username: '@JohnSmith',
-        comment: 'Thanks for sharing!',
-        likes: 8,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '3',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '4',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '5',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '6',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '7',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '8',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-      {
-        id: '9',
-        username: '@JaneDoe',
-        comment: 'This is an amazing post! He really likes it! Also, this is a really long comment, so if you want to see the like button, it\'s going to be a long ways down! 😊',
-        likes: 12,
-        is_liked: false,
-        does_user_own: false,
-      },
-    ];
-
-    const commentsResult: Comments = {
-      comment_count: 9,
-      comments: comments,
-    };
-
-    return of(commentsResult);
+    return this.http.get<Comments>(`${environment.apiBaseUrl}/video-comments/${videoId}`);
   }
 
   // like/dislike a comment
   public toggleCommentLike(commentId: string): Observable<any> {
-    const data = {
-      comment_id: commentId,
-    };
-
-    // return this.http.post(`${environment.apiBaseUrl}/comments/likes/toggle`, data);
-    return of(data);
+    return this.http.post(`${environment.apiBaseUrl}/comments/${commentId}/like`, {});
   }
 
-  public createComment(videoId: string): Observable<any> {
+  // create a comment for the given video with the given content
+  public createComment(videoId: string, comment: string): Observable<any> {
     const data = {
-      video_id: videoId,
+      comment: comment,
     };
-    const url = `${environment.apiBaseUrl}/comments/likes/toggle`;
+    const url = `${environment.apiBaseUrl}/video-comments/${videoId}`;
 
-    // return this.http.post(url, data);
-    return of(data);
+    return this.http.post(url, data);
   }
 }
