@@ -28,7 +28,7 @@ class VideoController extends Controller
     public function withId(Request $request, string $id): JsonResponse
     {
         $video = Video::with(['user:id,username', 'tags:id,tag'])
-            ->withCount(['usersLiked', ])
+            ->withCount(['likedBy'])
             ->where('id', $id)
             ->first();
 
@@ -52,8 +52,8 @@ class VideoController extends Controller
                         'name' => $tag->tag,
                     ];
                 }),
-                'has_watched' => $video->usersWatched()->where('user_id', $user->id)->exists(),
-                'is_liked' => $video->usersLiked()->where('user_id', $user->id)->exists(),
+                'has_watched' => $video->watchedBy()->where('user_id', $user->id)->exists(),
+                'is_liked' => $video->likedBy()->where('user_id', $user->id)->exists(),
                 'like_count' => $video->likes
             ],
         ], 200);

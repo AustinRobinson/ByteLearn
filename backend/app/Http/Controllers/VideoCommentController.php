@@ -17,6 +17,7 @@ class VideoCommentController extends Controller
         $comments = $video->comments()
             ->with(['user', 'replies.user'])
             ->whereNull('comment_id') // Get only parent comments
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json([
@@ -29,6 +30,9 @@ class VideoCommentController extends Controller
                         'id' => $comment->user->id,
                         'username' => $comment->user->username
                     ],
+                    'likes' => $comment->usersLiked()->count(),
+                    'is_liked' => $comment->usersLiked()->where('user_id', request()->user()->id)->exists(),
+                    'created_at' => $comment->created_at,
                     'replies' => $comment->replies->map(function ($reply) {
                         return [
                             'id' => $reply->id,
@@ -86,7 +90,7 @@ class VideoCommentController extends Controller
     public function toggleLike(Request $request, Comment $comment): JsonResponse
     {
         $user = $request->user();
-        
+
         if ($comment->usersLiked()->where('user_id', $user->id)->exists()) {
             $comment->usersLiked()->detach($user->id);
             $comment->decrement('likes');

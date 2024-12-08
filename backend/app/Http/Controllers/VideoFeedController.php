@@ -20,7 +20,7 @@ class VideoFeedController extends Controller
 
         $limit = $validated['limit'] ?? 20;
         $offset = $validated['offset'] ?? 0;
-        
+
         // Get user's interests
         $user = $request->user();
         $userInterestTags = $user->interests()
@@ -62,7 +62,7 @@ class VideoFeedController extends Controller
                     'id' => $video->id,
                     'title' => $video->title,
                     'description' => $video->description,
-                    's3_key' => $video->s3_key,        
+                    's3_key' => $video->s3_key,
                     'created_at' => $video->created_at,
                     'like_count' => $video->likedBy()->count(),
                     'user' => [
@@ -76,7 +76,7 @@ class VideoFeedController extends Controller
                     'is_liked' => $video->likedBy()->where('user_id', $user->id)->exists(),
                     'has_watched' => $video->watchedBy()->where('user_id', $user->id)->exists(),
                     'comment_count' => $video->comments()->count(),
-                    'matches_interests' => !empty($userInterestTags) && 
+                    'matches_interests' => !empty($userInterestTags) &&
                         $video->tags->whereIn('id', $userInterestTags)->isNotEmpty()
                 ];
                 }),

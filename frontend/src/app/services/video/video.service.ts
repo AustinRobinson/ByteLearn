@@ -11,6 +11,7 @@ export interface uploadFormData {
   description: string;
 }
 
+// Interface for upload video API response
 export interface UploadVideoResponse {
   id: string;
 }
@@ -18,7 +19,7 @@ export interface UploadVideoResponse {
 // Interface for task tags
 export interface Tag {
   id: string,
-  tag: string,
+  name: string,
 }
 
 // Interface for a video's details
@@ -38,11 +39,26 @@ export interface VideoDetails {
   like_count: number;
 }
 
-// Interface for each entry in the video feed
-export interface VideoFeed {
+// Interface for a video instance in the video feed
+export interface FeedVideo {
   id: string;
   s3_key: string;
 }
+
+// Interface for the video feed's meta information
+export interface FeedMeta {
+  total: number;
+  offset: string;
+  limit: string;
+  has_interests: boolean;
+}
+
+// Interface for the response to video feed request
+export interface VideoFeedResponse {
+  data: FeedVideo[];
+  meta: FeedMeta;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -72,14 +88,14 @@ export class VideoService {
     );
   }
 
-  // Like/dislike the video with the given ID
-  public toggleVideoLike(videoId: string): Observable<any> {
-    const data = {
-      video_id: videoId,
-    };
+  // Like the given video
+  public likeVideo(videoId: string): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/video-like/${videoId}`, {});
+  }
 
-    // return this.http.post(`${environment.apiBaseUrl}/videos/likes/toggle`, data);
-    return of(data);
+  // Dislike the given video
+  public dislikeVideo(videoId: string): Observable<any> {
+    return this.http.delete(`${environment.apiBaseUrl}/video-like/${videoId}`);
   }
 
   // Get the video with the given ID
@@ -101,17 +117,7 @@ export class VideoService {
   }
 
   // Get the page of the video feed at the given offset with the given limit
-  public videoFeed(offset: number, limit: number): Observable<VideoFeed[]> {
-    // return this.http.get<VideoDetails>(`${environment.apiBaseUrl}/videos/feed?offset=${offset}&limit=${limit}`);
-    const feed: VideoFeed[] = [];
-
-    for (let i = offset * limit; i < (offset + 1) * limit; ++i) {
-      feed.push({
-        id: `${i}`,
-        s3_key: `${i}`,
-      });
-    }
-
-    return of(feed);
+  public videoFeed(offset: number, limit: number): Observable<VideoFeedResponse> {
+    return this.http.get<VideoFeedResponse>(`${environment.apiBaseUrl}/video-feed/feed/?offset=${offset}&limit=${limit}`);
   }
 }

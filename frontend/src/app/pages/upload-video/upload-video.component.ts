@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { uploadFormData, UploadVideoResponse, VideoService } from '../../services/video/video.service';
 import { Router } from '@angular/router';
+import { P } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-upload-video',
@@ -16,12 +17,14 @@ export class UploadVideoComponent {
   public requiredFileType = 'video/mp4';
   public dragCounter = 0;
 
+  public fileErrorMessage = '';
+
   video: File | null = null;
   public videoUrl: string | ArrayBuffer = '';
 
   uploadForm = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
   });
 
   // construct the component with the injected video service
@@ -65,6 +68,7 @@ export class UploadVideoComponent {
 
     const files: FileList = event.dataTransfer.files
     if (!files || files.length === 0) {
+      this.fileErrorMessage = 'Not a valid file';
       return;
     }
 
@@ -87,23 +91,32 @@ export class UploadVideoComponent {
   // videoUrl.
   private onFileChange(files: FileList): void {
     this.video = files.item(0)!;
-
-    if (!this.requiredFileType.includes(this.video.type)) {
+    if (this.video.size > 500000000) {
+      this.fileErrorMessage = 'File is too large';
       return;
     }
 
-    console.log(this.video);
+    if (!this.requiredFileType.includes(this.video.type)) {
+      this.fileErrorMessage = 'File is not an mp4';
+      return;
+    }
 
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent<FileReader>) => {
       this.videoUrl = event.target?.result || '';
     };
     reader.readAsDataURL(this.video);
+    this.fileErrorMessage = '';
   }
 
   // upon form submission, make a request to the back-end API with the video and
   // its details (title and description)
   public onSubmit(): void {
+    if (this.uploadForm.invalid) {
+      this.uploadForm.markAllAsTouched();
+      return;
+    }
+
     const uploadData: uploadFormData = {
       video: this.video!,
       title: this.title?.value! ?? '',
