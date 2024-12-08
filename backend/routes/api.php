@@ -31,6 +31,7 @@ Route::middleware([AuthenticateToken::class])->group(function () {
 
     // User routes
     Route::controller(UserController::class)->group(function () {
+        //
     });
 
     // Video feed routes
@@ -50,7 +51,6 @@ Route::middleware([AuthenticateToken::class])->group(function () {
         Route::post('/videos/comments/{video}', 'store');
         Route::post('/comments/{comment}/like', 'toggleLike');
     });
-
 
     // Video routes
     Route::controller(VideoController::class)->group(function () {
