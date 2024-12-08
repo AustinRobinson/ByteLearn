@@ -1,5 +1,5 @@
 import { Component, computed, OnInit, Signal, signal } from '@angular/core';
-import { VideoFeed, VideoService } from '../../services/video/video.service';
+import { FeedVideo, VideoFeedResponse, VideoService } from '../../services/video/video.service';
 import { HeaderComponent } from "../../components/header/header.component";
 import { VideoPlayerComponent } from "../../components/video-player/video-player.component";
 
@@ -17,11 +17,12 @@ export const FEED_LIMIT: number = 20;
   styleUrl: './video-feed.component.css'
 })
 export class VideoFeedComponent implements OnInit {
+  public total = signal(0);
   public offset = signal(0);
   public videoIndex = signal(0);
 
   // signal holding current video feed
-  public videoFeed = signal<VideoFeed[]>([]);
+  public videoFeed = signal<FeedVideo[]>([]);
 
   // ID of the current video based on video feed and index
   public videoId: Signal<string> = computed(() => {
@@ -55,9 +56,10 @@ export class VideoFeedComponent implements OnInit {
   public isPreviousDisabled: Signal<boolean> = computed(() => {
     return this.videoIndex() <= 0;
   });
-  // whether the next video button is disabled (currently, there is no
-  // reason for it to be disabled)
-  public isNextDisabled = signal(false);
+  // whether the next video button is disabled
+  public isNextDisabled: Signal<boolean> = computed(() => {
+    return this.videoIndex() === this.total() - 1;
+  });
 
   public constructor(
     private videoService: VideoService
@@ -71,13 +73,14 @@ export class VideoFeedComponent implements OnInit {
   // update the current video feed page
   private addNextFeed(): void {
     this.videoService.videoFeed(this.offset(), FEED_LIMIT).subscribe({
-      next: (feed: VideoFeed[]) => {
+      next: (feed: VideoFeedResponse) => {
         this.videoFeed.update(currentFeed => {
           return [
             ...currentFeed,
-            ...feed,
+            ...feed.data,
           ];
         });
+        this.total.set(feed.meta.total);
       },
       error: (error: any) => {
         console.log('Error fetching feed', error);
