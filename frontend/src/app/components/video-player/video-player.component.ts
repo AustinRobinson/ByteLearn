@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { VideoDetails, VideoService } from '../../services/video/video.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Comments, CommentService } from '../../services/comment/comment.service';
+import { CommentService, Comments } from '../../services/comment/comment.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
@@ -84,15 +84,26 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   // Toggle likeing/disliking the video
-  public toggleVideoLike(): void {
-    this.videoService.toggleVideoLike(this.videoId()).subscribe({
-      next: () => {
-        this.videoDetails$ = this.videoService.getVideo(this.videoId());
-      },
-      error: (err) => {
-        console.log('Error toggling video like', err);
-      }
-    });
+  public toggleVideoLike(isVideoLiked: boolean): void {
+    if (isVideoLiked) {
+      this.videoService.dislikeVideo(this.videoId()).subscribe({
+        next: () => {
+          this.videoDetails$ = this.videoService.getVideo(this.videoId());
+        },
+        error: (err) => {
+          console.log('Error toggling video like', err);
+        }
+      });
+    } else {
+      this.videoService.likeVideo(this.videoId()).subscribe({
+        next: () => {
+          this.videoDetails$ = this.videoService.getVideo(this.videoId());
+        },
+        error: (err) => {
+          console.log('Error toggling video like', err);
+        }
+      });
+    }
   }
 
   // Toggle opening/closing the video comments accordion
@@ -107,15 +118,15 @@ export class VideoPlayerComponent implements OnInit {
       return;
     }
 
-    this.commentService.createComment(this.videoId()).subscribe({
+    this.commentService.createComment(this.videoId(), this.commentControl.value!).subscribe({
       next: (value) => {
         this.videoComments$ = this.commentService.getVideoComments(this.videoId());
       },
       error: (err) => {
         console.log('Error creating comment', err);
-
       }
     });
+    this.commentForm.reset();
   }
 
   // Toggle liking/disliking a particular comment -> updates the video's comments
