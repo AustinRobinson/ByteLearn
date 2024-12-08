@@ -19,7 +19,7 @@ export interface UploadVideoResponse {
 // Interface for task tags
 export interface Tag {
   id: string,
-  tag: string,
+  name: string,
 }
 
 // Interface for a video's details
