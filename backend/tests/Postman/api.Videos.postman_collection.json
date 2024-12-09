@@ -39,7 +39,62 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/videos/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"all"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:22:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Returning all videos.\",\n    \"data\": [\n        {\n            \"id\": \"9d8d8dca-4407-4a87-9857-9f0cf16bea9a\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f6297b99e93c653f281ef88908b3034\",\n            \"title\": \"Non ipsa dolorem qui.\",\n            \"description\": \"Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed. Voluptate placeat corporis eos vitae consequuntur. Molestiae accusamus reiciendis voluptatem autem enim quo molestiae. Molestiae assumenda ea eos illum corporis at ea.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-44df-47e2-9dd6-83db58c2d937\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f4d47b85154b359265c390ede6ade92\",\n            \"title\": \"Exercitationem unde eos maxime harum id doloribus quod vel.\",\n            \"description\": \"Quidem culpa rerum quibusdam consequatur esse. Officia praesentium dolorum officiis ratione enim voluptas asperiores. Ut eveniet similique similique ratione ut ea. Maiores quia tenetur incidunt nobis. Ratione molestiae quam eos magni porro non.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-458b-4af4-935e-a72fb05f3291\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"0bf84f1a82d59b697bdd92171477ef5f\",\n            \"title\": \"Et est est quia nulla.\",\n            \"description\": \"Aut dolorem quasi tenetur ad. Excepturi quis sequi saepe. Aut est magni voluptas et adipisci modi quia et. Possimus repellat officiis quia quia nisi ut non blanditiis. Quod excepturi minus sit et quod sed. Sit consequatur autem minima iste error. Voluptatem voluptatem quae et ea facere praesentium unde.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-47d1-4947-8177-b08c289441b9\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"931a0f8ec4a83c7e48550cd9b3bb6183\",\n            \"title\": \"Rem dolores minus repudiandae eligendi commodi saepe.\",\n            \"description\": \"Odio ex sequi excepturi sed commodi adipisci. Eum ea consequuntur qui sit. Aut veniam quisquam cumque dolor quis qui rerum. Consequatur molestiae dolorem labore molestiae ut architecto.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4873-48a9-82d2-9f4c197e74dc\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"5e8c1d5652a71be9be7e95f7fd49b084\",\n            \"title\": \"Blanditiis sint velit expedita quo et sit voluptas laboriosam.\",\n            \"description\": \"Voluptatem repellat voluptas facilis ducimus. Consequuntur enim saepe veniam doloribus sed dolores. Sunt aut et illo magnam culpa. Et cumque ex culpa qui. Sed est quis ut iste reiciendis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4910-4fb5-a5fc-6b6df99c7ff0\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"de3c6cdf3abd8da99b52040c5ac32744\",\n            \"title\": \"Aut eligendi excepturi incidunt animi natus sunt quo.\",\n            \"description\": \"Eos assumenda ipsam deserunt asperiores eum officia. Minus sit quia autem veritatis rerum quam. Consequuntur praesentium qui fugiat possimus rem quo rem. Sequi tempore tempore sint aspernatur earum et corporis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4b2d-4a0e-b1b5-477cf55d40b4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"8245999bda4d1db763f489638caf6c65\",\n            \"title\": \"Reiciendis soluta deserunt placeat ipsa nam culpa illo.\",\n            \"description\": \"Omnis quidem et quia rem reiciendis ut. Voluptatum aut aperiam et a molestias qui. Qui debitis asperiores nihil sint autem doloribus enim. Consequuntur fuga dolores provident rerum. Ut fugit expedita mollitia perferendis quibusdam in. Ratione sed sequi nobis laudantium exercitationem odit illo sed.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4bc2-4cd0-bead-6e2bdb86164b\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"2f877390fa96cc4e3241774f1974cf52\",\n            \"title\": \"Voluptas voluptate rem voluptas excepturi.\",\n            \"description\": \"Perferendis quia ut sapiente et. Pariatur perspiciatis ea ipsum illum beatae ipsam. Sed deleniti dignissimos sint sed modi inventore aut. Cupiditate minus sit et qui dolorem.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4c65-420b-a6ec-ee80ce75ebd4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"02420f331717d2061091d76ed2e25641\",\n            \"title\": \"Quia ut corrupti officiis quaerat qui ullam.\",\n            \"description\": \"Possimus et odit a minus. Sapiente fuga aliquid repellendus delectus facere est. Autem quo iste est provident voluptatem doloremque accusantium. Libero quidem voluptatem aut quia iure sapiente ut nostrum.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d906262-e93c-473b-8690-bc4a541478cc\",\n            \"user_id\": \"9d8faa5f-c8a7-42f7-a638-60c5e8c4f2cc\",\n            \"s3_key\": \"test_s3_2\",\n            \"title\": \"test_video2\",\n            \"description\": \"test_description\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-24T07:48:35.000000Z\",\n            \"updated_at\": \"2024-11-24T07:48:35.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Upload Video",
@@ -67,11 +122,11 @@
 						{
 							"key": "video",
 							"type": "file",
-							"src": "/C:/Users/Alekz/Downloads/Netflix_Tech_Stack.mp4"
+							"src": "/C:/Users/Alekz/Downloads/this_is_when_you_should_appreciate_abstraction_in_codingcoding_programming_javascript_python_OZ5TDCdjI78.mp4"
 						},
 						{
 							"key": "title",
-							"value": "test_video2",
+							"value": "test_video3",
 							"type": "text"
 						},
 						{
@@ -94,7 +149,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/Alekz/Downloads/this_is_when_you_should_appreciate_abstraction_in_codingcoding_programming_javascript_python_OZ5TDCdjI78.mp4"
+								},
+								{
+									"key": "title",
+									"value": "test_video3",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "test_description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"upload"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:31:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Video uploaded successfully.\",\n    \"data\": {\n        \"user_id\": \"9daea3d3-154c-40b9-9f81-8485b114aae9\",\n        \"s3_key\": \"9daea3d3-154c-40b9-9f81-8485b114aae9/fH0Db6LCfZPMacC3ikL7dxswWoDlzzTuJOM3zEPh.mp4\",\n        \"title\": \"test_video3\",\n        \"description\": \"test_description\",\n        \"id\": \"9daeb3cb-3944-4ddb-9b2d-11e5812d692c\",\n        \"updated_at\": \"2024-12-09T09:31:03.000000Z\",\n        \"created_at\": \"2024-12-09T09:31:03.000000Z\",\n        \"tags\": [],\n        \"user\": {\n            \"id\": \"9daea3d3-154c-40b9-9f81-8485b114aae9\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Test\",\n            \"email\": \"john.test1@example.com\",\n            \"email_verified_at\": null,\n            \"username\": \"JohnTest1\",\n            \"refresh_token\": null,\n            \"created_at\": \"2024-12-09T08:46:23.000000Z\",\n            \"updated_at\": \"2024-12-09T08:46:23.000000Z\",\n            \"suspended_until\": null,\n            \"permanently_banned_at\": null\n        }\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search All (One)",
@@ -148,7 +278,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/all?search=test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"all"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:23:25 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results for test\",\n    \"data\": [\n        {\n            \"id\": \"9d906262-e93c-473b-8690-bc4a541478cc\",\n            \"user_id\": \"9d8faa5f-c8a7-42f7-a638-60c5e8c4f2cc\",\n            \"s3_key\": \"test_s3_2\",\n            \"title\": \"test_video2\",\n            \"description\": \"test_description\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-24T07:48:35.000000Z\",\n            \"updated_at\": \"2024-11-24T07:48:35.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search All (Multi)",
@@ -202,7 +403,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/all?search=et",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"all"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "et"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:23:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results for et\",\n    \"data\": [\n        {\n            \"id\": \"9d8d8dca-458b-4af4-935e-a72fb05f3291\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"0bf84f1a82d59b697bdd92171477ef5f\",\n            \"title\": \"Et est est quia nulla.\",\n            \"description\": \"Aut dolorem quasi tenetur ad. Excepturi quis sequi saepe. Aut est magni voluptas et adipisci modi quia et. Possimus repellat officiis quia quia nisi ut non blanditiis. Quod excepturi minus sit et quod sed. Sit consequatur autem minima iste error. Voluptatem voluptatem quae et ea facere praesentium unde.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4407-4a87-9857-9f0cf16bea9a\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f6297b99e93c653f281ef88908b3034\",\n            \"title\": \"Non ipsa dolorem qui.\",\n            \"description\": \"Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed. Voluptate placeat corporis eos vitae consequuntur. Molestiae accusamus reiciendis voluptatem autem enim quo molestiae. Molestiae assumenda ea eos illum corporis at ea.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4c65-420b-a6ec-ee80ce75ebd4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"02420f331717d2061091d76ed2e25641\",\n            \"title\": \"Quia ut corrupti officiis quaerat qui ullam.\",\n            \"description\": \"Possimus et odit a minus. Sapiente fuga aliquid repellendus delectus facere est. Autem quo iste est provident voluptatem doloremque accusantium. Libero quidem voluptatem aut quia iure sapiente ut nostrum.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4b2d-4a0e-b1b5-477cf55d40b4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"8245999bda4d1db763f489638caf6c65\",\n            \"title\": \"Reiciendis soluta deserunt placeat ipsa nam culpa illo.\",\n            \"description\": \"Omnis quidem et quia rem reiciendis ut. Voluptatum aut aperiam et a molestias qui. Qui debitis asperiores nihil sint autem doloribus enim. Consequuntur fuga dolores provident rerum. Ut fugit expedita mollitia perferendis quibusdam in. Ratione sed sequi nobis laudantium exercitationem odit illo sed.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4bc2-4cd0-bead-6e2bdb86164b\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"2f877390fa96cc4e3241774f1974cf52\",\n            \"title\": \"Voluptas voluptate rem voluptas excepturi.\",\n            \"description\": \"Perferendis quia ut sapiente et. Pariatur perspiciatis ea ipsum illum beatae ipsam. Sed deleniti dignissimos sint sed modi inventore aut. Cupiditate minus sit et qui dolorem.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4873-48a9-82d2-9f4c197e74dc\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"5e8c1d5652a71be9be7e95f7fd49b084\",\n            \"title\": \"Blanditiis sint velit expedita quo et sit voluptas laboriosam.\",\n            \"description\": \"Voluptatem repellat voluptas facilis ducimus. Consequuntur enim saepe veniam doloribus sed dolores. Sunt aut et illo magnam culpa. Et cumque ex culpa qui. Sed est quis ut iste reiciendis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4910-4fb5-a5fc-6b6df99c7ff0\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"de3c6cdf3abd8da99b52040c5ac32744\",\n            \"title\": \"Aut eligendi excepturi incidunt animi natus sunt quo.\",\n            \"description\": \"Eos assumenda ipsam deserunt asperiores eum officia. Minus sit quia autem veritatis rerum quam. Consequuntur praesentium qui fugiat possimus rem quo rem. Sequi tempore tempore sint aspernatur earum et corporis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Title (One)",
@@ -256,7 +528,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/title?search=quo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"title"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "quo"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:23:49 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on titles for quo\",\n    \"data\": [\n        {\n            \"id\": \"9d8d8dca-4873-48a9-82d2-9f4c197e74dc\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"5e8c1d5652a71be9be7e95f7fd49b084\",\n            \"title\": \"Blanditiis sint velit expedita quo et sit voluptas laboriosam.\",\n            \"description\": \"Voluptatem repellat voluptas facilis ducimus. Consequuntur enim saepe veniam doloribus sed dolores. Sunt aut et illo magnam culpa. Et cumque ex culpa qui. Sed est quis ut iste reiciendis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4910-4fb5-a5fc-6b6df99c7ff0\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"de3c6cdf3abd8da99b52040c5ac32744\",\n            \"title\": \"Aut eligendi excepturi incidunt animi natus sunt quo.\",\n            \"description\": \"Eos assumenda ipsam deserunt asperiores eum officia. Minus sit quia autem veritatis rerum quam. Consequuntur praesentium qui fugiat possimus rem quo rem. Sequi tempore tempore sint aspernatur earum et corporis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-44df-47e2-9dd6-83db58c2d937\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f4d47b85154b359265c390ede6ade92\",\n            \"title\": \"Exercitationem unde eos maxime harum id doloribus quod vel.\",\n            \"description\": \"Quidem culpa rerum quibusdam consequatur esse. Officia praesentium dolorum officiis ratione enim voluptas asperiores. Ut eveniet similique similique ratione ut ea. Maiores quia tenetur incidunt nobis. Ratione molestiae quam eos magni porro non.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Title (Multi)",
@@ -310,7 +653,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/title?search=et",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"title"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "et"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:23:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on titles for et\",\n    \"data\": [\n        {\n            \"id\": \"9d8d8dca-458b-4af4-935e-a72fb05f3291\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"0bf84f1a82d59b697bdd92171477ef5f\",\n            \"title\": \"Et est est quia nulla.\",\n            \"description\": \"Aut dolorem quasi tenetur ad. Excepturi quis sequi saepe. Aut est magni voluptas et adipisci modi quia et. Possimus repellat officiis quia quia nisi ut non blanditiis. Quod excepturi minus sit et quod sed. Sit consequatur autem minima iste error. Voluptatem voluptatem quae et ea facere praesentium unde.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4873-48a9-82d2-9f4c197e74dc\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"5e8c1d5652a71be9be7e95f7fd49b084\",\n            \"title\": \"Blanditiis sint velit expedita quo et sit voluptas laboriosam.\",\n            \"description\": \"Voluptatem repellat voluptas facilis ducimus. Consequuntur enim saepe veniam doloribus sed dolores. Sunt aut et illo magnam culpa. Et cumque ex culpa qui. Sed est quis ut iste reiciendis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Description (One)",
@@ -364,7 +778,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/description?search=temporibus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"description"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "temporibus"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:09 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on descriptions for temporibus\",\n    \"data\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Description (Many)",
@@ -418,7 +903,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/description?search=qui",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"description"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "qui"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:18 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on descriptions for qui\",\n    \"data\": [\n        {\n            \"id\": \"9d8d8dca-44df-47e2-9dd6-83db58c2d937\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f4d47b85154b359265c390ede6ade92\",\n            \"title\": \"Exercitationem unde eos maxime harum id doloribus quod vel.\",\n            \"description\": \"Quidem culpa rerum quibusdam consequatur esse. Officia praesentium dolorum officiis ratione enim voluptas asperiores. Ut eveniet similique similique ratione ut ea. Maiores quia tenetur incidunt nobis. Ratione molestiae quam eos magni porro non.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4c65-420b-a6ec-ee80ce75ebd4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"02420f331717d2061091d76ed2e25641\",\n            \"title\": \"Quia ut corrupti officiis quaerat qui ullam.\",\n            \"description\": \"Possimus et odit a minus. Sapiente fuga aliquid repellendus delectus facere est. Autem quo iste est provident voluptatem doloremque accusantium. Libero quidem voluptatem aut quia iure sapiente ut nostrum.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4b2d-4a0e-b1b5-477cf55d40b4\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"8245999bda4d1db763f489638caf6c65\",\n            \"title\": \"Reiciendis soluta deserunt placeat ipsa nam culpa illo.\",\n            \"description\": \"Omnis quidem et quia rem reiciendis ut. Voluptatum aut aperiam et a molestias qui. Qui debitis asperiores nihil sint autem doloribus enim. Consequuntur fuga dolores provident rerum. Ut fugit expedita mollitia perferendis quibusdam in. Ratione sed sequi nobis laudantium exercitationem odit illo sed.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4bc2-4cd0-bead-6e2bdb86164b\",\n            \"user_id\": \"9d8d8dca-4a62-484c-8dcc-9ac2bb91c2a8\",\n            \"s3_key\": \"2f877390fa96cc4e3241774f1974cf52\",\n            \"title\": \"Voluptas voluptate rem voluptas excepturi.\",\n            \"description\": \"Perferendis quia ut sapiente et. Pariatur perspiciatis ea ipsum illum beatae ipsam. Sed deleniti dignissimos sint sed modi inventore aut. Cupiditate minus sit et qui dolorem.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4407-4a87-9857-9f0cf16bea9a\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"8f6297b99e93c653f281ef88908b3034\",\n            \"title\": \"Non ipsa dolorem qui.\",\n            \"description\": \"Est et aut aut ipsam nemo quisquam architecto. Natus harum neque et sed. Voluptate placeat corporis eos vitae consequuntur. Molestiae accusamus reiciendis voluptatem autem enim quo molestiae. Molestiae assumenda ea eos illum corporis at ea.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-458b-4af4-935e-a72fb05f3291\",\n            \"user_id\": \"9d8d8dca-4245-4fad-86a8-7630b677ae9f\",\n            \"s3_key\": \"0bf84f1a82d59b697bdd92171477ef5f\",\n            \"title\": \"Et est est quia nulla.\",\n            \"description\": \"Aut dolorem quasi tenetur ad. Excepturi quis sequi saepe. Aut est magni voluptas et adipisci modi quia et. Possimus repellat officiis quia quia nisi ut non blanditiis. Quod excepturi minus sit et quod sed. Sit consequatur autem minima iste error. Voluptatem voluptatem quae et ea facere praesentium unde.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-47d1-4947-8177-b08c289441b9\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"931a0f8ec4a83c7e48550cd9b3bb6183\",\n            \"title\": \"Rem dolores minus repudiandae eligendi commodi saepe.\",\n            \"description\": \"Odio ex sequi excepturi sed commodi adipisci. Eum ea consequuntur qui sit. Aut veniam quisquam cumque dolor quis qui rerum. Consequatur molestiae dolorem labore molestiae ut architecto.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4910-4fb5-a5fc-6b6df99c7ff0\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"de3c6cdf3abd8da99b52040c5ac32744\",\n            \"title\": \"Aut eligendi excepturi incidunt animi natus sunt quo.\",\n            \"description\": \"Eos assumenda ipsam deserunt asperiores eum officia. Minus sit quia autem veritatis rerum quam. Consequuntur praesentium qui fugiat possimus rem quo rem. Sequi tempore tempore sint aspernatur earum et corporis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        },\n        {\n            \"id\": \"9d8d8dca-4873-48a9-82d2-9f4c197e74dc\",\n            \"user_id\": \"9d8d8dca-46fb-47d2-8dbc-d7b78e2a1688\",\n            \"s3_key\": \"5e8c1d5652a71be9be7e95f7fd49b084\",\n            \"title\": \"Blanditiis sint velit expedita quo et sit voluptas laboriosam.\",\n            \"description\": \"Voluptatem repellat voluptas facilis ducimus. Consequuntur enim saepe veniam doloribus sed dolores. Sunt aut et illo magnam culpa. Et cumque ex culpa qui. Sed est quis ut iste reiciendis.\",\n            \"likes\": 0,\n            \"is_banned\": false,\n            \"created_at\": \"2024-11-22T22:02:27.000000Z\",\n            \"updated_at\": \"2024-11-22T22:02:27.000000Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Tag (One)",
@@ -472,7 +1028,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/tag?search=temporibus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"tag"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "temporibus"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on tags for temporibus\",\n    \"data\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search Tag (Many)",
@@ -526,7 +1153,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/tag?search=qui",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"tag"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "qui"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:34 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on tags for qui\",\n    \"data\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search User (One)",
@@ -580,7 +1278,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/user?search=j",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "j"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on users for j\",\n    \"data\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Search User (Many)",
@@ -634,7 +1403,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/search/user?search=qui",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"search",
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "qui"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:24:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Search results on users for qui\",\n    \"data\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Video Temp URL",
@@ -653,15 +1493,12 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"s3_key\": \"9daea3d3-154c-40b9-9f81-8485b114aae9/fH0Db6LCfZPMacC3ikL7dxswWoDlzzTuJOM3zEPh.mp4\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -669,7 +1506,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/videos/url?s3_key=9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4",
+					"raw": "http://localhost/api/videos/url",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -678,16 +1515,74 @@
 						"api",
 						"videos",
 						"url"
-					],
-					"query": [
-						{
-							"key": "s3_key",
-							"value": "9d95637b-b586-4d54-a254-32a21fd46926/YM72qWMa7eSbNjuK4tGi733pHiicE0FyfpScCH6a.mp4"
-						}
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GoodResponse",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"s3_key\": \"9daea3d3-154c-40b9-9f81-8485b114aae9/fH0Db6LCfZPMacC3ikL7dxswWoDlzzTuJOM3zEPh.mp4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/videos/url",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"videos",
+								"url"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 09 Dec 2024 09:32:34 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Temporary video link for 9daea3d3-154c-40b9-9f81-8485b114aae9/fH0Db6LCfZPMacC3ikL7dxswWoDlzzTuJOM3zEPh.mp4\",\n    \"data\": \"https://bytelearn-prod.s3.us-east-2.amazonaws.com/videos/9daea3d3-154c-40b9-9f81-8485b114aae9/fH0Db6LCfZPMacC3ikL7dxswWoDlzzTuJOM3zEPh.mp4?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZVMTUZDZQHNLV5H2%2F20241209%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20241209T093234Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=56d62645a7b8be0273181483946ac9c07eafc0fa28e7347f92b9145ec216e097\"\n}"
+				}
+			]
 		}
 	]
 }
