@@ -9,7 +9,7 @@
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div class="mt-2">
-          <input id="email" formControlName="email" type="email" autocomplete="email" required
+          <input id="email" data-cy="email-input" formControlName="email" type="email" autocomplete="email" required
             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           <div *ngIf="email?.hasError('serverError')" class="text-red-600 text-sm mt-1">
             {{ email?.getError('serverError') }}
@@ -25,7 +25,8 @@
           </div>
         </div>
         <div class="mt-2">
-          <input id="password" formControlName="password" type="password" autocomplete="current-password" required
+          <input id="password" data-cy="password-input" formControlName="password" type="password"
+            autocomplete="current-password" required
             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           <div *ngIf="password?.getError('serverError')" class="text-red-600 text-sm mt-1">
             {{ password?.getError('serverError') }}
@@ -33,12 +34,13 @@
         </div>
       </div>
 
-      <div *ngIf="loginForm.hasError('serverError')" class="text-red-600 text-sm mt-2 flex justify-center">
+      <div *ngIf="loginForm.hasError('serverError')" data-cy="form-error"
+        class="text-red-600 text-sm mt-2 flex justify-center">
         {{ loginForm.getError('serverError') }}
       </div>
 
       <div>
-        <button type="submit"
+        <button type="submit" data-cy="submit-button"
           class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           Sign in
         </button>
