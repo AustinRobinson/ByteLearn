@@ -1,4 +1,4 @@
-import { mockRegisterSuccess, mockRegisterValidationFailure } from "../../support/mockApi";
+import { faker } from '@faker-js/faker';
 
 describe('Signup Page', () => {
     beforeEach(() => {
@@ -45,7 +45,7 @@ describe('Signup Page', () => {
 
     it('should validate password minimum length', () => {
         // enter a short password
-        cy.get('[data-cy="password-input"]').type('short');
+        cy.get('[data-cy="password-input"]').type(faker.internet.password({ length: 7 }));
 
         // click the submit button
         cy.get('[data-cy="submit-button"]').click();
@@ -56,8 +56,8 @@ describe('Signup Page', () => {
 
     it('should validate password confirmation', () => {
         // enter password and mismatched confirmation password
-        cy.get('[data-cy="password-input"]').type('validPassword123');
-        cy.get('[data-cy="confirm-password-input"]').type('differentPassword');
+        cy.get('[data-cy="password-input"]').type(faker.internet.password());
+        cy.get('[data-cy="confirm-password-input"]').type(faker.internet.password());
 
         // click the submit button
         cy.get('[data-cy="submit-button"]').click();
@@ -67,46 +67,49 @@ describe('Signup Page', () => {
     });
 
     it('should display server-side validation errors', () => {
-        // mock server side validation failure for all fields
-        cy.mockApi(mockRegisterValidationFailure);
+        // intercept the register API request
+        cy.intercept('POST', '/api/register').as('registerRequest');
 
         // fill the form with data that passes client side validation
         // first name and last name should be under 255 characters
-        cy.get('[data-cy="first-name-input"]').type("John");
-        cy.get('[data-cy="last-name-input"]').type("Doe");
-        cy.get('[data-cy="username-input"]').type('existinguser');
-        cy.get('[data-cy="email-input"]').type('email@alreadytaken.com');
+        cy.get('[data-cy="first-name-input"]').type("a".repeat(256));
+        cy.get('[data-cy="last-name-input"]').type("a".repeat(256));
+        cy.get('[data-cy="username-input"]').type('unametest');
+        cy.get('[data-cy="email-input"]').type('testuser@example.com');
         cy.get('[data-cy="password-input"]').type('ValidPassword123');
         cy.get('[data-cy="confirm-password-input"]').type('ValidPassword123');
 
         // submit the form
         cy.get('[data-cy="submit-button"]').click();
 
-        // wait for the mocked response and assert status code
-        cy.wait('@registerRequest').its('response.statusCode').should('eq', 400);
+        cy.wait('@registerRequest').then((interception) => {
+            // assert the status code
+            expect(interception?.response?.statusCode).to.eq(422);
 
-        const expectedErrors = mockRegisterValidationFailure.response.errors;
+            // get the actual response body
+            const actualErrors = interception?.response?.body?.errors;
 
-        // verify server-side validation messages are displayed
-        cy.get('[data-cy="first-name-server-error"]').should('contain', expectedErrors.first_name[0]);
-        cy.get('[data-cy="last-name-server-error"]').should('contain', expectedErrors.last_name[0]);
-        cy.get('[data-cy="username-server-error"]').should('contain', expectedErrors.username[0]);
-        cy.get('[data-cy="email-server-error"]').should('contain', expectedErrors.email[0]);
-        cy.get('[data-cy="password-server-error"]').should('contain', expectedErrors.password[0]);
-        cy.get('[data-cy="confirm-password-server-error"]').should('contain', expectedErrors.password_confirmation[0]);
+            // verify server-side validation messages are displayed dynamically
+            cy.get('[data-cy="first-name-server-error"]').should('contain', actualErrors.first_name[0]);
+            cy.get('[data-cy="last-name-server-error"]').should('contain', actualErrors.last_name[0]);
+            cy.get('[data-cy="username-server-error"]').should('contain', actualErrors.username[0]);
+            cy.get('[data-cy="email-server-error"]').should('contain', actualErrors.email[0]);
+        });
+
     });
 
     it('should successfully submit the form with valid data', () => {
-        // mock registration success
-        cy.mockApi(mockRegisterSuccess);
+        // intercept the register API request
+        cy.intercept('POST', '/api/register').as('registerRequest');
 
         // fill the form with valid data
-        cy.get('[data-cy="first-name-input"]').type("John");
-        cy.get('[data-cy="last-name-input"]').type("Doe");
-        cy.get('[data-cy="username-input"]').type('existinguser');
-        cy.get('[data-cy="email-input"]').type('johndoe@example.com');
-        cy.get('[data-cy="password-input"]').type('ValidPassword123');
-        cy.get('[data-cy="confirm-password-input"]').type('ValidPassword123');
+        cy.get('[data-cy="first-name-input"]').type(faker.person.firstName());
+        cy.get('[data-cy="last-name-input"]').type(faker.person.lastName());
+        cy.get('[data-cy="username-input"]').type(faker.internet.userName());
+        cy.get('[data-cy="email-input"]').type(faker.internet.email());
+        const password = faker.internet.password();
+        cy.get('[data-cy="password-input"]').type(password);
+        cy.get('[data-cy="confirm-password-input"]').type(password);
 
         // submit the form
         cy.get('[data-cy="submit-button"]').click();

@@ -24,7 +24,7 @@
 
         <!-- Authenticated User -->
         <div class="relative flex items-center">
-          <button type="button" (click)="toggleProfileMenu()"
+          <button type="button" data-cy="profile-photo" (click)="toggleProfileMenu()"
             class="relative flex items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
             <span class="sr-only">Open user menu</span>
             <img class="h-8 w-8 rounded-full" [src]="userProfileImage" alt="User Profile">
@@ -34,7 +34,8 @@
             <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a> -->
             <a routerLink="/upload-video" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Upload
               Video</a>
-            <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+            <a (click)="logout()" data-cy="logout-button-desktop"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
           </div>
         </div>
       </ng-container>
@@ -71,7 +72,7 @@
         </a>
         <ng-container *ngIf="authService.isAuthenticated(); else mobileGuestLinks">
           <!-- Authenticated User -->
-          <button (click)="logout()"
+          <button (click)="logout()" data-cy="logout-button-mobile"
             class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
             Sign Out
           </button>

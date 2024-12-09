@@ -41,24 +41,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
-
-declare namespace Cypress {
-    interface Chainable<Subject = any> {
-        mockApi(mockConfig: {
-            method: string;
-            url: string;
-            statusCode: number;
-            response: object;
-        }): Chainable<void>;
-    }
-}
-
-
-Cypress.Commands.add('mockApi', (mockConfig) => {
-    cy.intercept(mockConfig.method, mockConfig.url, {
-        statusCode: mockConfig.statusCode,
-        body: mockConfig.response,
-    }).as(`${mockConfig.url.replace('/api/', '')}Request`);
-});
-
