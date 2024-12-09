@@ -31,7 +31,7 @@ class Video extends Model
 
     /**
      * Set attributes that should be searchable by Meilisearch
-     * 
+     *
      * @return array
      */
     public function toSearchableArray(): array {

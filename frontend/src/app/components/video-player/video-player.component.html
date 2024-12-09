@@ -38,7 +38,7 @@
         <div class="flex flex-wrap gap-x-2">
           @for (tag of videoDetails.tags; track tag.id) {
           <div class="rounded-md bg-indigo-600 p-2 text-white">
-            {{ tag.tag }}
+            {{ tag.name }}
           </div>
           }
         </div>
@@ -49,7 +49,7 @@
         <div class="flex justify-between flex-wrap">
           <p>{{ videoDetails.like_count }}</p>
           <div class="flex gap-x-4 flex-wrap">
-            <button (click)="toggleVideoLike()" class="flex items-center" [class]="{
+            <button (click)="toggleVideoLike(videoDetails.is_liked)" class="flex items-center" [class]="{
                 'text-gray-500': !videoDetails.is_liked,
                 'hover:text-gray-600': !videoDetails.is_liked,
                 'text-red-500': videoDetails.is_liked,
@@ -75,7 +75,7 @@
       <button
         class="w-full flex justify-between items-center rounded-lg p-4 text-left text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none"
         (click)="toggleComments()">
-        <span class="font-semibold">{{ videoComments.comment_count }} Comments</span>
+        <span class="font-semibold">{{ videoComments.meta.total_comments }} Comments</span>
         <svg [class.rotate-180]="isCommentsOpen()" class="w-5 h-5 transform transition-transform"
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -98,11 +98,12 @@
               class="rounded-md bg-indigo-600 disabled:bg-gray-300 px-3 py-1 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Comment</button>
           </div>
         </form>
-        @for (comment of videoComments.comments; track comment.id) {
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-sm text-gray-700"><strong>{{ comment.username }}</strong></p>
-            <p>{{ comment.comment }}</p>
+        @for (comment of videoComments.data; track comment.id) {
+        <div class="flex justify-between items-center gap-x-2">
+          <div class="flex flex-col gap-y-2">
+            <p class="text-sm text-gray-700"><strong>{{ comment.user.username }}</strong></p>
+            <p>{{ comment.text }}</p>
+            <p class="text-xs font-semibold text-gray-500 italic">{{ comment.created_at | date: 'shortDate'}}</p>
           </div>
           <button (click)="toggleCommentLike(comment.id)" class="flex items-center " [class]="{
               'text-gray-500': !comment.is_liked,
